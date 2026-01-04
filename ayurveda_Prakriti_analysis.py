@@ -1228,9 +1228,9 @@ def display_footer():
                 <span>May all be happy</span>
             </div>
             <div class="footer-row" style="font-size: 0.7rem; color: #8d6e63; margin-top: 8px;">
-                <span>© 2024</span>
+                <span>© 2026</span>
                 <span>•</span>
-                <span>5,000 years of Ayurvedic Tradition</span>
+                <span>5,000 years of Ayurvedic Tradition (Yogendra Timilsina)</span>
             </div>
         </div>
     </div>
@@ -1553,4 +1553,5 @@ def main():
     display_footer()
 
 if __name__ == "__main__":
+
     main()
