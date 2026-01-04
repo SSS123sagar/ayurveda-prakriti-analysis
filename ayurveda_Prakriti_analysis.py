@@ -179,7 +179,7 @@ st.markdown("""
         
         /* Dark Mode Radio Buttons */
         .stRadio > div > label {
-            color: var(--dark-text) !important;
+            color: #ffffff !important;  /* CHANGED: White text for better visibility */
         }
         
         /* Dark Mode Select Box */
@@ -1656,7 +1656,7 @@ def display_personality_section(dosha_data):
 # QUESTION TOGGLE COMPONENT
 # =============================
 def display_questions_with_toggle():
-    """Display questions with horizontal minimize option"""
+    """Display questions with horizontal minimize option and improved dark mode visibility"""
     
     # Initialize session state for toggle
     if 'questions_visible' not in st.session_state:
@@ -1683,17 +1683,172 @@ def display_questions_with_toggle():
         st.info("Answer these 10 questions based on your lifelong natural tendencies. Be honest, not ideal.")
         
         for i, (q_text, options) in enumerate(AYURVEDIC_QUESTIONS):
+            # Wrap question in custom div for better dark mode visibility
+            st.markdown(f"""
+            <div class="question-container" style="margin-bottom: 20px; padding: 15px; 
+                    background: rgba(255, 255, 255, 0.05); border-radius: 8px; 
+                    border-left: 3px solid #8d6e63;">
+                <div style="font-weight: 600; font-size: 1.1rem; color: #5d4037; 
+                        margin-bottom: 10px;">{q_text}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Create custom radio buttons with better styling
             response = st.radio(
-                q_text,
+                "",  # Empty label since we already displayed it above
                 options,
                 key=f"q_{i}",
-                index=None
+                index=None,
+                label_visibility="collapsed"
             )
+            
             if response:
                 responses.append(response[0])
             st.markdown("---")
     
     st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Add CSS for question styling in dark mode - CLEAN VERSION
+    st.markdown("""
+    <style>
+    /* Question container styling */
+    .question-container {
+        transition: all 0.3s ease;
+        animation: fadeIn 0.8s ease;
+    }
+    
+    /* Radio button styling for better visibility */
+    div[data-testid="stRadio"] > div {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px;
+        border-radius: 8px;
+        margin: 8px 0;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(221, 221, 221, 0.2);
+    }
+    
+    div[data-testid="stRadio"] > div:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: #4a90e2 !important;
+        transform: translateX(3px);
+    }
+    
+    /* Radio button labels - CLEAN WHITE */
+    div[data-testid="stRadio"] label {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+        color: #2d2d2d !important;
+        padding-left: 8px !important;
+    }
+    
+    /* Selected radio button */
+    div[data-testid="stRadio"] > div[data-testid="stRadio"] {
+        border-color: #2e7d32 !important;
+        background: rgba(46, 125, 50, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+    }
+    
+    /* Radio button circle - BRIGHT BLUE FOR VISIBILITY */
+    div[data-testid="stRadio"] div[role="radiogroup"] > div:first-child {
+        border-color: #4a90e2 !important;
+        border-width: 2px !important;
+    }
+    
+    div[data-testid="stRadio"] div[role="radiogroup"] > div:first-child > div:first-child {
+        background-color: #4a90e2 !important;
+    }
+    
+    /* Dark mode overrides - CLEAN HIGH-CONTRAST VERSION */
+    @media (prefers-color-scheme: dark) {
+        .question-container {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-left: 3px solid #64b5f6 !important;
+        }
+        
+        .question-container:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-left-color: #4fc3f7 !important;
+        }
+        
+        .question-container div {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Radio button containers in dark mode - CLEAN DARK BACKGROUND */
+        div[data-testid="stRadio"] > div {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        }
+        
+        div[data-testid="stRadio"] > div:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #64b5f6 !important;
+            box-shadow: 0 4px 12px rgba(100, 181, 246, 0.2);
+        }
+        
+        /* Radio button labels in dark mode - BRIGHT WHITE */
+        div[data-testid="stRadio"] label {
+            color: #ffffff !important;
+            font-weight: 400 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Selected option in dark mode - CLEAN GREEN */
+        div[data-testid="stRadio"] > div[data-testid="stRadio"] {
+            border-color: #4caf50 !important;
+            background: rgba(76, 175, 80, 0.15) !important;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
+        }
+        
+        div[data-testid="stRadio"] > div[data-testid="stRadio"] label {
+            color: #ffffff !important;
+            font-weight: 500 !important;
+        }
+        
+        /* Radio button indicators - BRIGHT BLUE */
+        div[data-testid="stRadio"] div[role="radiogroup"] > div:first-child {
+            border-color: #64b5f6 !important;
+            border-width: 2px !important;
+        }
+        
+        div[data-testid="stRadio"] div[role="radiogroup"] > div:first-child > div:first-child {
+            background-color: #64b5f6 !important;
+            transform: scale(0.8);
+        }
+        
+        /* Make the divider more visible in dark mode */
+        hr {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            margin: 20px 0 !important;
+        }
+    }
+    
+    /* Animation for question appearance */
+    @keyframes fadeInQuestion {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .question-container {
+        animation: fadeInQuestion 0.5s ease;
+    }
+    
+    /* Make sure all text has good contrast */
+    .stRadio, .stMarkdown {
+        color-scheme: dark light;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     return responses
 
 # =============================
@@ -1904,17 +2059,20 @@ def main():
             ])
             
             with tab1:
+                # FIXED: Use dark mode compatible colors for wisdom card
                 st.markdown(f"""
                 <div class="wisdom-card">
-                    <h3>Your Archetype Story</h3>
-                    <p>{dosha_data['story']}</p>
+                    <h3 style="color: {st.session_state.main_dosha == 'Vata' and '#8d6e63' or st.session_state.main_dosha == 'Pitta' and '#d32f2f' or '#388e3c'};">
+                        Your Archetype Story
+                    </h3>
+                    <p style="color: inherit;">{dosha_data['story']}</p>
                     <hr>
-                    <p><b>Ancient Wisdom:</b> <i>"{dosha_data['ancient_quote']}"</i></p>
-                    <p><b>Sanskrit Name:</b> {dosha_data['sanskrit_name']}</p>
-                    <p><b>Element:</b> {dosha_data['element']}</p>
-                    <p><b>Governing Planets:</b> {dosha_data['governing_planet']}</p>
-                    <p><b>Season:</b> {dosha_data['season']}</p>
-                    <p><b>Peak Time:</b> {dosha_data['time_of_day']}</p>
+                    <p style="color: inherit;"><b>Ancient Wisdom:</b> <i>"{dosha_data['ancient_quote']}"</i></p>
+                    <p style="color: inherit;"><b>Sanskrit Name:</b> {dosha_data['sanskrit_name']}</p>
+                    <p style="color: inherit;"><b>Element:</b> {dosha_data['element']}</p>
+                    <p style="color: inherit;"><b>Governing Planets:</b> {dosha_data['governing_planet']}</p>
+                    <p style="color: inherit;"><b>Season:</b> {dosha_data['season']}</p>
+                    <p style="color: inherit;"><b>Peak Time:</b> {dosha_data['time_of_day']}</p>
                 </div>
                 """, unsafe_allow_html=True)
             
