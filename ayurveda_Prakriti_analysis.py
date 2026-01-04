@@ -14,24 +14,254 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Enhanced Ancient Wisdom Theme with improved button colors and animations
+# Enhanced Ancient Wisdom Theme with improved button colors and DARK MODE SUPPORT
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap');
     
-    /* Background with subtle sacred geometry */
+    /* CSS Variables for Light/Dark Mode */
+    :root {
+        /* Light Mode Colors */
+        --light-bg: linear-gradient(135deg, #f5f1e8 0%, #f0e6d6 100%);
+        --light-bg-radial: radial-gradient(circle at 10% 20%, rgba(142, 110, 99, 0.03) 0%, transparent 20%),
+                           radial-gradient(circle at 90% 80%, rgba(78, 52, 46, 0.02) 0%, transparent 20%);
+        --light-text: #1a1a1a;
+        --light-card-bg: rgba(255, 255, 255, 0.95);
+        --light-card-border: #d7ccc8;
+        --light-metric-bg: white;
+        
+        /* Dark Mode Colors */
+        --dark-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        --dark-bg-radial: radial-gradient(circle at 10% 20%, rgba(142, 110, 99, 0.1) 0%, transparent 20%),
+                          radial-gradient(circle at 90% 80%, rgba(78, 52, 46, 0.05) 0%, transparent 20%);
+        --dark-text: #f0f0f0;
+        --dark-card-bg: rgba(40, 40, 40, 0.95);
+        --dark-card-border: #444;
+        --dark-metric-bg: #2d2d2d;
+        
+        /* Common Colors */
+        --primary-gold: #D4AF37;
+        --primary-gold-dark: #B8860B;
+        --secondary-green: #388e3c;
+        --secondary-green-dark: #2e7d32;
+        --vata-color: #8e6e63;
+        --pitta-color: #d32f2f;
+        --kapha-color: #388e3c;
+        --h1-color: #4e342e;
+        --h2-color: #5d4037;
+        --subtitle-color: #795548;
+    }
+    
+    /* Apply colors based on data-theme attribute */
     .main {
-        background: linear-gradient(135deg, #f5f1e8 0%, #f0e6d6 100%);
-        background-image: 
-            radial-gradient(circle at 10% 20%, rgba(142, 110, 99, 0.03) 0%, transparent 20%),
-            radial-gradient(circle at 90% 80%, rgba(78, 52, 46, 0.02) 0%, transparent 20%);
-        color: #1a1a1a;
+        background: var(--light-bg);
+        background-image: var(--light-bg-radial);
+        color: var(--light-text);
+    }
+    
+    /* Dark Mode Detection and Overrides */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --h1-color: #e0d6cc;
+            --h2-color: #d7ccc8;
+            --subtitle-color: #bcaaa4;
+        }
+        
+        .main {
+            background: var(--dark-bg);
+            background-image: var(--dark-bg-radial);
+            color: var(--dark-text);
+        }
+        
+        /* Dark Mode Text Colors */
+        h1, h2, h3 {
+            color: var(--dark-text) !important;
+        }
+        
+        .subtitle {
+            color: var(--subtitle-color) !important;
+        }
+        
+        p, span, label, .stSelectbox label, .stRadio label, div[data-testid="stMarkdownContainer"] p {
+            color: var(--dark-text) !important;
+        }
+        
+        /* Dark Mode Cards */
+        .wisdom-card {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-card-border);
+            color: var(--dark-text);
+        }
+        
+        /* Dark Mode Specific Card Backgrounds */
+        .vata-card {
+            background: linear-gradient(90deg, rgba(142, 110, 99, 0.1) 0%, var(--dark-card-bg) 10%) !important;
+        }
+        
+        .pitta-card {
+            background: linear-gradient(90deg, rgba(211, 47, 47, 0.1) 0%, var(--dark-card-bg) 10%) !important;
+        }
+        
+        .kapha-card {
+            background: linear-gradient(90deg, rgba(56, 142, 60, 0.1) 0%, var(--dark-card-bg) 10%) !important;
+        }
+        
+        /* Dark Mode Metric Cards */
+        .metric-card {
+            background: var(--dark-metric-bg);
+            border-color: var(--dark-card-border);
+            color: var(--dark-text);
+        }
+        
+        /* Dark Mode Fact Boxes */
+        .fact-box {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+            border-color: #555;
+            color: var(--dark-text);
+        }
+        
+        .nepali-date-box {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2a3a4a 100%);
+            border-color: #3a5a7a;
+            color: var(--dark-text);
+        }
+        
+        /* Dark Mode Routine Items */
+        .routine-item {
+            background: rgba(40, 40, 40, 0.9);
+            border-left-color: #8d6e63;
+            color: var(--dark-text);
+        }
+        
+        .routine-time {
+            color: #e0d6cc;
+        }
+        
+        /* Dark Mode Question Toggle */
+        .question-toggle-container {
+            background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+            border-color: #555;
+            color: var(--dark-text);
+        }
+        
+        .question-toggle-container:hover {
+            background: linear-gradient(135deg, #333 0%, #3a3a3a 100%);
+            border-color: var(--vata-color);
+        }
+        
+        /* Dark Mode Footer */
+        .footer {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.7) 0%, rgba(50, 50, 50, 0.7) 100%) !important;
+            border-top-color: #555;
+            color: #bcaaa4 !important;
+        }
+        
+        .footer a {
+            color: #d7a46e !important;
+        }
+        
+        /* Dark Mode Expanders */
+        .streamlit-expanderHeader {
+            color: var(--dark-text) !important;
+            background-color: var(--dark-card-bg) !important;
+            border-color: var(--dark-card-border) !important;
+        }
+        
+        .streamlit-expanderHeader:hover {
+            background-color: rgba(50, 50, 50, 0.95) !important;
+        }
+        
+        /* Dark Mode Info/Warning/Success/Error Boxes */
+        .stAlert {
+            background-color: rgba(40, 40, 40, 0.9) !important;
+            border-color: #555 !important;
+        }
+        
+        /* Dark Mode Radio Buttons */
+        .stRadio > div > label {
+            color: var(--dark-text) !important;
+        }
+        
+        /* Dark Mode Select Box */
+        .stSelectbox > div > div > div {
+            color: var(--dark-text) !important;
+        }
+        
+        /* Dark Mode Date Input */
+        .stDateInput > div > div > input {
+            background-color: var(--dark-metric-bg) !important;
+            color: var(--dark-text) !important;
+            border-color: #555 !important;
+        }
+        
+        /* Dark Mode Number Input */
+        .stNumberInput > div > div > input {
+            background-color: var(--dark-metric-bg) !important;
+            color: var(--dark-text) !important;
+            border-color: #555 !important;
+        }
+        
+        /* Dark Mode Text Input */
+        .stTextInput > div > div > input {
+            background-color: var(--dark-metric-bg) !important;
+            color: var(--dark-text) !important;
+            border-color: #555 !important;
+        }
+        
+        /* Dark Mode Slider */
+        .stSlider > div > div > div {
+            background-color: #555 !important;
+        }
+        
+        /* Dark Mode Tabs */
+        .stTabs [data-baseweb="tab-list"] {
+            background: rgba(60, 60, 60, 0.8) !important;
+        }
+        
+        .stTabs [data-baseweb="tab"] {
+            background-color: #444 !important;
+            color: #ccc !important;
+        }
+        
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%) !important;
+            color: white !important;
+        }
+        
+        /* Dark Mode Progress Bar Background */
+        .stProgress > div > div {
+            background-color: #555 !important;
+        }
+        
+        /* Welcome message container for dark mode */
+        .welcome-container {
+            background: rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .welcome-container {
+                background: rgba(40, 40, 40, 0.9) !important;
+                color: var(--dark-text) !important;
+            }
+            
+            .welcome-container h3 {
+                color: var(--dark-text) !important;
+            }
+            
+            .welcome-container p {
+                color: var(--dark-text) !important;
+            }
+            
+            .welcome-container .quote {
+                color: #d7a46e !important;
+            }
+        }
     }
     
     /* Typography Hierarchy */
     h1 {
         font-family: 'Crimson Text', serif;
-        color: #4e342e !important;
+        color: var(--h1-color) !important;
         text-align: center;
         font-weight: 700;
         font-size: 3.5rem;
@@ -43,9 +273,9 @@ st.markdown("""
     
     h2, h3 {
         font-family: 'Crimson Text', serif;
-        color: #5d4037 !important;
+        color: var(--h2-color) !important;
         font-weight: 600;
-        border-bottom: 1px solid #d7ccc8;
+        border-bottom: 1px solid var(--light-card-border);
         padding-bottom: 0.5rem;
         margin-top: 2rem;
         animation: fadeIn 1.2s ease;
@@ -53,7 +283,7 @@ st.markdown("""
     
     .subtitle {
         font-family: 'Merriweather', serif;
-        color: #795548 !important;
+        color: var(--subtitle-color) !important;
         text-align: center;
         font-size: 1.2rem;
         font-style: italic;
@@ -63,14 +293,14 @@ st.markdown("""
     
     p, span, label, .stSelectbox label, .stRadio label {
         font-family: 'Inter', sans-serif;
-        color: #2d2d2d !important;
+        color: var(--light-text) !important;
         line-height: 1.6;
     }
     
     /* Enhanced Card Design */
     .wisdom-card {
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid #d7ccc8;
+        background: var(--light-card-bg);
+        border: 1px solid var(--light-card-border);
         padding: 20px;
         border-radius: 12px;
         margin-bottom: 20px;
@@ -98,18 +328,18 @@ st.markdown("""
     
     /* Dosha-specific cards */
     .vata-card {
-        border-left: 6px solid #8e6e63;
-        background: linear-gradient(90deg, rgba(142, 110, 99, 0.05) 0%, rgba(255, 255, 255, 0.95) 10%);
+        border-left: 6px solid var(--vata-color);
+        background: linear-gradient(90deg, rgba(142, 110, 99, 0.05) 0%, var(--light-card-bg) 10%);
     }
     
     .pitta-card {
-        border-left: 6px solid #d32f2f;
-        background: linear-gradient(90deg, rgba(211, 47, 47, 0.05) 0%, rgba(255, 255, 255, 0.95) 10%);
+        border-left: 6px solid var(--pitta-color);
+        background: linear-gradient(90deg, rgba(211, 47, 47, 0.05) 0%, var(--light-card-bg) 10%);
     }
     
     .kapha-card {
-        border-left: 6px solid #388e3c;
-        background: linear-gradient(90deg, rgba(56, 142, 60, 0.05) 0%, rgba(255, 255, 255, 0.95) 10%);
+        border-left: 6px solid var(--kapha-color);
+        background: linear-gradient(90deg, rgba(56, 142, 60, 0.05) 0%, var(--light-card-bg) 10%);
     }
     
     /* Tab Styling */
@@ -140,7 +370,7 @@ st.markdown("""
     
     /* IMPROVED BUTTON STYLING */
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%) !important;
+        background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%) !important;
         color: #ffffff !important;
         border-radius: 10px !important;
         padding: 14px 28px !important;
@@ -163,7 +393,7 @@ st.markdown("""
     
     /* Secondary Button */
     .stButton > button:not([kind="primary"]) {
-        background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%) !important;
+        background: linear-gradient(135deg, var(--secondary-green) 0%, var(--secondary-green-dark) 100%) !important;
         color: #ffffff !important;
         border-radius: 10px !important;
         padding: 12px 24px !important;
@@ -179,7 +409,7 @@ st.markdown("""
     .stButton > button:not([kind="primary"]):hover {
         transform: translateY(-1px) !important;
         box-shadow: 0 5px 10px rgba(56, 142, 60, 0.3) !important;
-        background: linear-gradient(135deg, #43a047 0%, #388e3c 100%) !important;
+        background: linear-gradient(135deg, #43a047 0%, var(--secondary-green) 100%) !important;
     }
     
     /* Progress Bar */
@@ -189,10 +419,10 @@ st.markdown("""
     
     /* Custom Metrics */
     .metric-card {
-        background: white;
+        background: var(--light-metric-bg);
         padding: 20px;
         border-radius: 12px;
-        border: 1px solid #d7ccc8;
+        border: 1px solid var(--light-card-border);
         text-align: center;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         animation: fadeIn 1s ease;
@@ -214,7 +444,7 @@ st.markdown("""
     /* Date Input Styling */
     .stDateInput > div > div > input {
         font-family: 'Inter', sans-serif !important;
-        color: #2d2d2d !important;
+        color: var(--light-text) !important;
     }
     
     [data-testid="stDateInput"] svg {
@@ -257,13 +487,13 @@ st.markdown("""
     }
     
     .routine-activity {
-        color: #2d2d2d;
+        color: var(--light-text);
         margin-bottom: 5px;
     }
     
     /* Download Button Special */
     .download-btn {
-        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%) !important;
+        background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%) !important;
         border: 2px solid #FFD700 !important;
     }
     
@@ -408,6 +638,179 @@ st.markdown("""
     .results-anchor {
         position: relative;
         top: -100px; /* Adjust based on your header height */
+    }
+    
+    /* Dark Mode specific text color overrides */
+    @media (prefers-color-scheme: dark) {
+        /* Info boxes */
+        div[data-testid="stAlert"] div[role="alert"] {
+            color: var(--dark-text) !important;
+        }
+        
+        /* Metric values */
+        [data-testid="stMetricValue"] {
+            color: var(--dark-text) !important;
+            font-weight: bold !important;
+            font-size: 1.8rem !important;
+        }
+        
+        /* Metric labels */
+        [data-testid="stMetricLabel"] {
+            color: #ccc !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Progress bar labels */
+        .stProgress .st-emotion-cache-1e5tc9u {
+            color: var(--dark-text) !important;
+        }
+        
+        /* Divider */
+        hr {
+            border-color: #555 !important;
+        }
+        
+        /* Success/Info/Warning/Error colors remain vibrant */
+        .stAlert [data-testid="stMarkdownContainer"] {
+            color: inherit !important;
+        }
+        
+        /* Caption text */
+        .stCaption {
+            color: #ccc !important;
+            font-weight: 500 !important;
+        }
+        
+        /* Make sure expander content is readable */
+        .streamlit-expanderContent {
+            color: var(--dark-text) !important;
+            background-color: var(--dark-card-bg) !important;
+        }
+        
+        /* Ensure proper contrast in all alerts */
+        .stAlert [data-baseweb="notification"] {
+            color: inherit !important;
+        }
+        
+        /* Dark mode for success/info/warning/error */
+        /* Success */
+        div[data-testid="stAlert"] div[role="alert"][style*="background-color: rgb(237, 247, 237)"] {
+            background-color: rgba(46, 125, 50, 0.2) !important;
+            border-color: #2e7d32 !important;
+        }
+        
+        /* Info */
+        div[data-testid="stAlert"] div[role="alert"][style*="background-color: rgb(229, 246, 253)"] {
+            background-color: rgba(30, 136, 229, 0.2) !important;
+            border-color: #1e88e5 !important;
+        }
+        
+        /* Warning */
+        div[data-testid="stAlert"] div[role="alert"][style*="background-color: rgb(255, 244, 229)"] {
+            background-color: rgba(245, 124, 0, 0.2) !important;
+            border-color: #f57c00 !important;
+        }
+        
+        /* Error */
+        div[data-testid="stAlert"] div[role="alert"][style*="background-color: rgb(253, 236, 234)"] {
+            background-color: rgba(211, 47, 47, 0.2) !important;
+            border-color: #d32f2f !important;
+        }
+        
+        /* Expander headers - consistent styling */
+        .streamlit-expanderHeader {
+            color: #e0d6cc !important;
+            font-weight: 600 !important;
+            font-size: 1.1rem !important;
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(70, 70, 70, 0.9) 100%) !important;
+            border: 1px solid #555 !important;
+            border-radius: 8px !important;
+            padding: 12px 16px !important;
+            margin-bottom: 5px !important;
+        }
+        
+        .streamlit-expanderHeader:hover {
+            background: linear-gradient(135deg, rgba(70, 70, 70, 0.95) 0%, rgba(80, 80, 80, 0.95) 100%) !important;
+            border-color: #8d6e63 !important;
+        }
+        
+        .streamlit-expanderHeader:focus {
+            outline: 2px solid #8d6e63 !important;
+        }
+        
+        /* Expander icons */
+        .streamlit-expanderHeader svg {
+            color: #8d6e63 !important;
+        }
+        
+        /* Progress bar track in dark mode */
+        .stProgress > div > div {
+            background-color: #555 !important;
+        }
+        
+        /* Progress bar fill */
+        .stProgress > div > div > div > div {
+            background: linear-gradient(90deg, #8d6e63, #d32f2f, #388e3c) !important;
+        }
+    }
+    
+    /* Ensure all Streamlit text elements have proper contrast */
+    .stMarkdown p, .stMarkdown li, .stMarkdown span {
+        color: inherit !important;
+    }
+    
+    /* Caption styling for dark mode */
+    @media (prefers-color-scheme: dark) {
+        .stCaption {
+            color: #ccc !important;
+        }
+    }
+    
+    /* Make sure expander content is readable */
+    .streamlit-expanderContent {
+        color: inherit !important;
+    }
+    
+    /* Ensure proper contrast in all alerts */
+    .stAlert [data-baseweb="notification"] {
+        color: inherit !important;
+    }
+    
+    /* Welcome message styling */
+    .welcome-message-container {
+        text-align: center;
+        padding: 40px;
+        border-radius: 12px;
+        margin: 20px 0;
+        animation: fadeIn 2s ease;
+        background: rgba(255, 255, 255, 0.8);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        .welcome-message-container {
+            background: rgba(40, 40, 40, 0.9) !important;
+        }
+        
+        .welcome-message-container h3 {
+            color: #e0d6cc !important;
+        }
+        
+        .welcome-message-container p {
+            color: #f0f0f0 !important;
+        }
+        
+        .welcome-message-container .dosha-label {
+            color: #ccc !important;
+        }
+        
+        .welcome-message-container .quote {
+            color: #d7a46e !important;
+            font-style: italic;
+        }
+        
+        .welcome-message-container .symbol {
+            color: #8d6e63 !important;
+        }
     }
     </style>
 """, unsafe_allow_html=True)
@@ -1026,28 +1429,113 @@ def display_daily_routine_visual(routine_data, dosha_type):
         """, unsafe_allow_html=True)
 
 def create_dosha_chart_streamlit(scores):
-    """Create a simple dosha chart"""
+    """Create a simple dosha chart with improved dark mode visibility"""
     st.markdown("### 📊 Your Dosha Balance")
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
         vata_percent = scores['Vata']
-        st.metric(label="Vata", value=f"{vata_percent:.0f}%")
-        st.progress(vata_percent/100)
-        st.caption("Light, Cold, Dry, Mobile")
+        # Custom HTML for Vata metric with dark mode support
+        st.markdown(f"""
+        <div style="text-align: center; padding: 15px; border-radius: 10px; border-left: 4px solid #8d6e63; 
+                    background: rgba(142, 110, 99, 0.1); margin-bottom: 10px;">
+            <div style="font-size: 1rem; color: #5d4037; font-weight: 600; margin-bottom: 5px;">VATA</div>
+            <div style="font-size: 2.5rem; color: #8d6e63; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                {vata_percent:.0f}%
+            </div>
+            <div style="font-size: 0.9rem; color: #795548; margin-top: 5px;">Light, Cold, Dry, Mobile</div>
+        </div>
+        """, unsafe_allow_html=True)
         
+        # Progress bar
+        st.progress(vata_percent/100)
+    
     with col2:
         pitta_percent = scores['Pitta']
-        st.metric(label="Pitta", value=f"{pitta_percent:.0f}%")
-        st.progress(pitta_percent/100)
-        st.caption("Hot, Sharp, Light, Liquid")
+        # Custom HTML for Pitta metric with dark mode support
+        st.markdown(f"""
+        <div style="text-align: center; padding: 15px; border-radius: 10px; border-left: 4px solid #d32f2f; 
+                    background: rgba(211, 47, 47, 0.1); margin-bottom: 10px;">
+            <div style="font-size: 1rem; color: #c62828; font-weight: 600; margin-bottom: 5px;">PITTA</div>
+            <div style="font-size: 2.5rem; color: #d32f2f; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                {pitta_percent:.0f}%
+            </div>
+            <div style="font-size: 0.9rem; color: #795548; margin-top: 5px;">Hot, Sharp, Light, Liquid</div>
+        </div>
+        """, unsafe_allow_html=True)
         
+        # Progress bar
+        st.progress(pitta_percent/100)
+    
     with col3:
         kapha_percent = scores['Kapha']
-        st.metric(label="Kapha", value=f"{kapha_percent:.0f}%")
+        # Custom HTML for Kapha metric with dark mode support
+        st.markdown(f"""
+        <div style="text-align: center; padding: 15px; border-radius: 10px; border-left: 4px solid #388e3c; 
+                    background: rgba(56, 142, 60, 0.1); margin-bottom: 10px;">
+            <div style="font-size: 1rem; color: #2e7d32; font-weight: 600; margin-bottom: 5px;">KAPHA</div>
+            <div style="font-size: 2.5rem; color: #388e3c; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+                {kapha_percent:.0f}%
+            </div>
+            <div style="font-size: 0.9rem; color: #795548; margin-top: 5px;">Heavy, Cold, Oily, Stable</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Progress bar
         st.progress(kapha_percent/100)
-        st.caption("Heavy, Cold, Oily, Stable")
+    
+    # Add dark mode CSS overrides
+    st.markdown("""
+    <style>
+    @media (prefers-color-scheme: dark) {
+        /* Vata metric dark mode */
+        div[style*="border-left: 4px solid #8d6e63"] {
+            background: rgba(142, 110, 99, 0.15) !important;
+        }
+        div[style*="border-left: 4px solid #8d6e63"] div:nth-child(1) {
+            color: #e0d6cc !important;
+        }
+        div[style*="border-left: 4px solid #8d6e63"] div:nth-child(2) {
+            color: #d7ccc8 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+        }
+        div[style*="border-left: 4px solid #8d6e63"] div:nth-child(3) {
+            color: #bcaaa4 !important;
+        }
+        
+        /* Pitta metric dark mode */
+        div[style*="border-left: 4px solid #d32f2f"] {
+            background: rgba(211, 47, 47, 0.15) !important;
+        }
+        div[style*="border-left: 4px solid #d32f2f"] div:nth-child(1) {
+            color: #ffcdd2 !important;
+        }
+        div[style*="border-left: 4px solid #d32f2f"] div:nth-child(2) {
+            color: #ff8a80 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+        }
+        div[style*="border-left: 4px solid #d32f2f"] div:nth-child(3) {
+            color: #ffab91 !important;
+        }
+        
+        /* Kapha metric dark mode */
+        div[style*="border-left: 4px solid #388e3c"] {
+            background: rgba(56, 142, 60, 0.15) !important;
+        }
+        div[style*="border-left: 4px solid #388e3c"] div:nth-child(1) {
+            color: #c8e6c9 !important;
+        }
+        div[style*="border-left: 4px solid #388e3c"] div:nth-child(2) {
+            color: #a5d6a7 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+        }
+        div[style*="border-left: 4px solid #388e3c"] div:nth-child(3) {
+            color: #c5e1a5 !important;
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 def display_body_description(dosha_data):
     """Display detailed body type description"""
@@ -1516,32 +2004,31 @@ def main():
                     st.rerun()
     
     else:
-        # Welcome Message with ancient experience
+        # Welcome Message with ancient experience - UPDATED FOR DARK MODE
         if not st.session_state.validation_errors:
             st.markdown("""
-            <div style="text-align: center; padding: 40px; background: rgba(255, 255, 255, 0.8); 
-                        border-radius: 12px; margin: 20px 0; animation: fadeIn 2s ease;">
-                <div style="font-size: 4rem; color: #8d6e63;">🌿</div>
+            <div class="welcome-message-container">
+                <div class="symbol" style="font-size: 4rem; color: #8d6e63;">🌿</div>
                 <h3>Welcome, Seeker of Balance</h3>
-                <p style="max-width: 600px; margin: 20px auto;">
+                <p style="max-width: 600px; margin: 20px auto; color: #2d2d2d;">
                 Discover your unique constitution through 5,000 years of Ayurvedic wisdom. 
                 Enter your name and birth date to begin your journey to self-knowledge.
                 </p>
                 <div style="margin: 30px 0;">
                     <div style="display: inline-block; margin: 0 20px; animation: fadeIn 2.5s ease;">
-                        <div style="font-size: 2.5rem;">🌀</div>
-                        <div>Vata</div>
+                        <div style="font-size: 2.5rem; color: #8d6e63;">🌀</div>
+                        <div class="dosha-label" style="color: #5d4037; font-weight: 500;">Vata</div>
                     </div>
                     <div style="display: inline-block; margin: 0 20px; animation: fadeIn 3s ease;">
-                        <div style="font-size: 2.5rem;">🔥</div>
-                        <div>Pitta</div>
+                        <div style="font-size: 2.5rem; color: #d32f2f;">🔥</div>
+                        <div class="dosha-label" style="color: #5d4037; font-weight: 500;">Pitta</div>
                     </div>
                     <div style="display: inline-block; margin: 0 20px; animation: fadeIn 3.5s ease;">
-                        <div style="font-size: 2.5rem;">🌊</div>
-                        <div>Kapha</div>
+                        <div style="font-size: 2.5rem; color: #388e3c;">🌊</div>
+                        <div class="dosha-label" style="color: #5d4037; font-weight: 500;">Kapha</div>
                     </div>
                 </div>
-                <p style="font-style: italic; color: #795548;">
+                <p class="quote" style="font-style: italic; color: #795548;">
                 "Health is the greatest gift, contentment the greatest wealth, 
                 faithfulness the best relationship."<br>
                 — Buddha
@@ -1553,5 +2040,4 @@ def main():
     display_footer()
 
 if __name__ == "__main__":
-
     main()
