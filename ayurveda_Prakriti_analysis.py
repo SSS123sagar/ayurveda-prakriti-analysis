@@ -1031,7 +1031,7 @@ class NepaliDateConverter:
             }
 
 # =============================
-# ENHANCED KNOWLEDGE BASE WITH ALL FEATURES
+# ENHANCED KNOWLEDGE BASE WITH ALL FEATURES (INCLUDING HERBS & BEAUTY)
 # =============================
 DOSHA_ARCHETYPES = {
     "Vata": {
@@ -1051,6 +1051,68 @@ DOSHA_ARCHETYPES = {
         "ancient_quote": "As the wind moves freely, so does the Vata soul. Embrace change, for it is your nature.",
         "sanskrit_name": "वात प्रकृति",
         "governing_planet": "Saturn & Mercury",
+        
+        # PERFUME & SCENTS SECTION - ADDED
+        "perfume_recommendations": {
+            "top_scents": ["Sandalwood", "Vanilla", "Cinnamon", "Orange", "Bergamot", "Frankincense", "Myrrh"],
+            "notes_to_embrace": ["Warm", "Sweet", "Grounding", "Woody", "Comforting"],
+            "notes_to_avoid": ["Minty", "Cooling", "Light", "Airy", "Eucalyptus"],
+            "best_perfume_types": ["Oriental", "Woody", "Gourmand", "Amber", "Spicy"],
+            "application_tips": "Apply to pulse points (wrists, neck) after warm oil massage for better absorption",
+            "ayurvedic_blend": "Sandalwood (3 drops) + Vanilla (2 drops) + Orange (1 drop) in 10ml carrier oil",
+            "famous_perfumes": ["Shalimar by Guerlain", "Santal 33 by Le Labo", "Vanilla by Dior", "Cinnamon by Jo Malone"],
+            "seasonal_scents": {
+                "Spring": "Light citrus with warm base notes",
+                "Summer": "Milder versions of warm scents",
+                "Autumn": "Full-bodied spicy and woody scents",
+                "Winter": "Rich, deep, warming oriental blends"
+            }
+        },
+        
+        # NEW: HERBS & SUPPLEMENTS SECTION
+        "herbs_supplements": {
+            "general_herbs": ["Ashwagandha (Winter Cherry)", "Shatavari (Asparagus)", "Brahmi (Gotu Kola)", "Triphala", "Ginger", "Licorice", "Cinnamon"],
+            "male_specific": [
+                "Ashwagandha for strength and vitality",
+                "Gokshura for male reproductive health",
+                "Shilajit for energy and stamina",
+                "Safed Musli for testosterone balance"
+            ],
+            "female_specific": [
+                "Shatavari for hormonal balance",
+                "Ashoka for menstrual health",
+                "Lodhra for feminine wellness",
+                "Manjistha for skin and detox"
+            ],
+            "daily_supplements": ["Ashwagandha powder (1 tsp)", "Triphala (500mg)", "Sesame oil capsules", "Warm milk with turmeric"],
+            "avoid_herbs": ["Bitter melon", "Neem", "Aloe vera juice (cold)", "Strong laxatives"],
+            "best_form": "Powders in warm milk or ghee",
+            "timing": "Take with warm meals, avoid on empty stomach",
+            "ayurvedic_formulas": ["Ashwagandharishta", "Chyawanprash", "Dashamoola", "Bala Taila"]
+        },
+        
+        # NEW: BEAUTY & SKINCARE SECTION
+        "beauty_skincare": {
+            "skin_type": "Dry, thin, cool, prone to wrinkles and cracking",
+            "male_specific": [
+                "Use rich, creamy shaving creams",
+                "Warm oil beard conditioning daily",
+                "Avoid alcohol-based aftershaves",
+                "Moisturize immediately after shower"
+            ],
+            "female_specific": [
+                "Oil-based makeup removers",
+                "Cream-based foundations",
+                "Avoid powder-based products",
+                "Night creams with almond oil"
+            ],
+            "cleansing": "Oil cleansing method with warm sesame oil",
+            "moisturizing": "Heavy creams with shea butter, avocado oil",
+            "face_masks": ["Avocado + honey", "Banana + almond oil", "Sandalwood + rose water"],
+            "hair_care": ["Warm oil scalp massage", "Avoid blow drying", "Deep conditioning weekly"],
+            "problem_areas": ["Dry patches", "Early wrinkles", "Cold hands/feet", "Cracked heels"],
+            "ayurvedic_treatments": ["Abhyanga (oil massage)", "Shirodhara", "Nasya (nasal oils)", "Padabhyanga (foot massage)"]
+        },
         
         # DAILY CARE SECTION
         "oil_massage": {
@@ -1153,6 +1215,68 @@ DOSHA_ARCHETYPES = {
         "sanskrit_name": "पित्त प्रकृति",
         "governing_planet": "Sun & Mars",
         
+        # PERFUME & SCENTS SECTION - ADDED
+        "perfume_recommendations": {
+            "top_scents": ["Rose", "Jasmine", "Sandalwood", "Lavender", "Mint", "Chamomile", "Vetiver"],
+            "notes_to_embrace": ["Cooling", "Floral", "Sweet", "Fresh", "Calming"],
+            "notes_to_avoid": ["Spicy", "Warm", "Citrus", "Pepper", "Cinnamon"],
+            "best_perfume_types": ["Floral", "Aquatic", "Green", "Fresh", "Light Oriental"],
+            "application_tips": "Apply to cooler areas (inner elbows, behind knees) to avoid overheating",
+            "ayurvedic_blend": "Rose (3 drops) + Sandalwood (2 drops) + Lavender (1 drop) in 10ml coconut oil",
+            "famous_perfumes": ["Chanel No. 5", "Miss Dior", "Light Blue by Dolce & Gabbana", "J'adore by Dior"],
+            "seasonal_scents": {
+                "Spring": "Light floral and green scents",
+                "Summer": "Cool aquatic and fresh citrus",
+                "Autumn": "Mild woody with floral notes",
+                "Winter": "Gentle sweet florals with cool base"
+            }
+        },
+        
+        # NEW: HERBS & SUPPLEMENTS SECTION
+        "herbs_supplements": {
+            "general_herbs": ["Amla (Indian Gooseberry)", "Shatavari", "Coriander", "Fennel", "Rose", "Sandalwood", "Aloe Vera"],
+            "male_specific": [
+                "Shatavari for cooling and stress",
+                "Amalaki for antioxidant protection",
+                "Guduchi for liver health",
+                "Bhringaraj for hair and cooling"
+            ],
+            "female_specific": [
+                "Shatavari for hormonal balance",
+                "Manjistha for clear skin",
+                "Kumari (Aloe) for digestion",
+                "Chandana (Sandalwood) for cooling"
+            ],
+            "daily_supplements": ["Amla powder (1 tsp)", "Shatavari (500mg)", "Coconut water", "Rose water"],
+            "avoid_herbs": ["Ginger (excess)", "Black pepper", "Garlic", "Cayenne"],
+            "best_form": "Cool infusions, powders in cool water",
+            "timing": "Take between meals, avoid in midday heat",
+            "ayurvedic_formulas": ["Chandraprabha Vati", "Amla Murabba", "Shatavari Ghrita", "Kumaryasava"]
+        },
+        
+        # NEW: BEAUTY & SKINCARE SECTION
+        "beauty_skincare": {
+            "skin_type": "Sensitive, warm, reddish, prone to rashes and acne",
+            "male_specific": [
+                "Alcohol-free aftershaves",
+                "Cooling pre-shave oils",
+                "Avoid hot water shaving",
+                "SPF 30+ daily"
+            ],
+            "female_specific": [
+                "Mineral-based makeup",
+                "Cooling sheet masks",
+                "Rose water toner",
+                "Avoid heavy foundations"
+            ],
+            "cleansing": "Gentle milk cleansers, rose water",
+            "moisturizing": "Light gels with aloe vera, cucumber",
+            "face_masks": ["Cucumber + mint", "Sandlwood + rose", "Aloe vera gel"],
+            "hair_care": ["Coconut oil cooling", "Avoid heat styling", "Herbal rinses"],
+            "problem_areas": ["Acne", "Rosacea", "Sun sensitivity", "Premature greying"],
+            "ayurvedic_treatments": ["Takradhara", "Chandana Lepa", "Ubtan with sandalwood", "Kashaya Dhara"]
+        },
+        
         # DAILY CARE SECTION
         "oil_massage": {
             "recommended_oil": "Coconut oil (cool) or sunflower oil. Add a few drops of rose or jasmine essential oil for cooling.",
@@ -1253,6 +1377,68 @@ DOSHA_ARCHETYPES = {
         "ancient_quote": "As the earth supports all life, so does Kapha support all beings with unwavering strength.",
         "sanskrit_name": "कफ प्रकृति",
         "governing_planet": "Moon & Venus",
+        
+        # PERFUME & SCENTS SECTION - ADDED
+        "perfume_recommendations": {
+            "top_scents": ["Eucalyptus", "Rosemary", "Ginger", "Juniper", "Peppermint", "Lemon", "Cypress"],
+            "notes_to_embrace": ["Stimulating", "Fresh", "Citrus", "Herbal", "Uplifting"],
+            "notes_to_avoid": ["Sweet", "Heavy", "Musk", "Vanilla", "Floral"],
+            "best_perfume_types": ["Citrus", "Fresh", "Green", "Herbal", "Aromatic"],
+            "application_tips": "Apply to active areas (wrists, neck) after dry brushing for better absorption",
+            "ayurvedic_blend": "Eucalyptus (3 drops) + Lemon (2 drops) + Rosemary (1 drop) in 10ml jojoba oil",
+            "famous_perfumes": ["Acqua di Gio by Giorgio Armani", "Eau Sauvage by Dior", "Un Jardin en Méditerranée by Hermès", "Green Tea by Elizabeth Arden"],
+            "seasonal_scents": {
+                "Spring": "Light citrus and herbal blends",
+                "Summer": "Fresh green and aquatic notes",
+                "Autumn": "Warm herbal with light spice",
+                "Winter": "Stimulating citrus with pine notes"
+            }
+        },
+        
+        # NEW: HERBS & SUPPLEMENTS SECTION
+        "herbs_supplements": {
+            "general_herbs": ["Ginger", "Turmeric", "Black Pepper", "Pippali (Long Pepper)", "Guggul", "Triphala", "Bitter Melon"],
+            "male_specific": [
+                "Guggul for cholesterol and weight",
+                "Shilajit for energy (small doses)",
+                "Punarnava for fluid balance",
+                "Musta for digestion"
+            ],
+            "female_specific": [
+                "Turmeric for inflammation",
+                "Ginger for circulation",
+                "Fenugreek for metabolism",
+                "Cinnamon for blood sugar"
+            ],
+            "daily_supplements": ["Triphala (750mg)", "Ginger tea", "Honey + lemon", "Warm water with spices"],
+            "avoid_herbs": ["Licorice", "Shatavari", "Heavy tonics", "Dairy-based formulas"],
+            "best_form": "Powders in honey, decoctions",
+            "timing": "Take on empty stomach, early morning",
+            "ayurvedic_formulas": ["Triphala Guggulu", "Medohar Guggulu", "Arogyavardhini", "Chitrakadi Vati"]
+        },
+        
+        # NEW: BEAUTY & SKINCARE SECTION
+        "beauty_skincare": {
+            "skin_type": "Oily, thick, cool, prone to congestion and large pores",
+            "male_specific": [
+                "Clay-based shaving creams",
+                "Exfoliate before shaving",
+                "Alcohol-free toners",
+                "Light, oil-free moisturizers"
+            ],
+            "female_specific": [
+                "Water-based foundations",
+                "Mineral powder makeup",
+                "Clay masks weekly",
+                "Avoid cream blushes"
+            ],
+            "cleansing": "Foaming cleansers, clay masks",
+            "moisturizing": "Light gels, oil-free lotions",
+            "face_masks": ["Clay + rose water", "Oatmeal + honey", "Turmeric + chickpea flour"],
+            "hair_care": ["Dry shampoo as needed", "Clarifying shampoos", "Avoid heavy conditioners"],
+            "problem_areas": ["Oily T-zone", "Blackheads", "Cellulite", "Water retention"],
+            "ayurvedic_treatments": ["Udvartana (dry massage)", "Swedana (herbal steam)", "Lepa (herbal pastes)", "Nasya with stimulating oils"]
+        },
         
         # DAILY CARE SECTION
         "oil_massage": {
@@ -1651,6 +1837,245 @@ def display_personality_section(dosha_data):
     with st.expander("🕉️ **Ancient Yogi Observations**", expanded=False):
         for observation in dosha_data["yogi_observations"]:
             st.markdown(f"• {observation}")
+
+# =============================
+# NEW: HERBS & SUPPLEMENTS SECTION
+# =============================
+def display_herbs_supplements_section(dosha_data):
+    """Display herbs and supplements recommendations"""
+    
+    herbs_data = dosha_data.get("herbs_supplements", {})
+    
+    if not herbs_data:
+        st.warning("Herbs and supplements recommendations not available.")
+        return
+    
+    st.markdown("### 🌿 **Ayurvedic Herbs & Supplements**")
+    st.info("Ancient Ayurvedic wisdom for natural healing and balance.")
+    
+    # Gender selection for specific recommendations
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("#### 🌱 **General Herbs for All**")
+        for herb in herbs_data.get("general_herbs", []):
+            st.markdown(f"• **{herb}**")
+    
+    with col2:
+        st.markdown("#### 💊 **Daily Supplements**")
+        for supplement in herbs_data.get("daily_supplements", []):
+            st.success(f"• {supplement}")
+    
+    # Gender-specific recommendations
+    st.markdown("---")
+    st.markdown("#### 👨‍⚕️ **Gender-Specific Recommendations**")
+    
+    gender_col1, gender_col2 = st.columns(2)
+    
+    with gender_col1:
+        st.markdown("##### 👨 **For Men**")
+        for item in herbs_data.get("male_specific", []):
+            st.markdown(f"• {item}")
+    
+    with gender_col2:
+        st.markdown("##### 👩 **For Women**")
+        for item in herbs_data.get("female_specific", []):
+            st.markdown(f"• {item}")
+    
+    # Additional Information
+    with st.expander("📋 **Usage Guidelines & Ayurvedic Formulas**", expanded=False):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Best Form & Timing:**")
+            st.info(f"**Form:** {herbs_data.get('best_form', '')}")
+            st.info(f"**Timing:** {herbs_data.get('timing', '')}")
+            
+            st.markdown("**Herbs to Avoid:**")
+            for herb in herbs_data.get("avoid_herbs", []):
+                st.warning(f"• {herb}")
+        
+        with col2:
+            st.markdown("**Classic Ayurvedic Formulas:**")
+            for formula in herbs_data.get("ayurvedic_formulas", []):
+                st.success(f"• {formula}")
+            
+            st.markdown("**Ancient Wisdom:**")
+            st.info("""
+            - Take herbs according to seasons
+            - Always consult an Ayurvedic practitioner
+            - Combine with proper diet and lifestyle
+            - Start with small doses and observe effects
+            """)
+
+# =============================
+# NEW: BEAUTY & SKINCARE SECTION
+# =============================
+def display_beauty_skincare_section(dosha_data):
+    """Display beauty and skincare recommendations"""
+    
+    beauty_data = dosha_data.get("beauty_skincare", {})
+    
+    if not beauty_data:
+        st.warning("Beauty and skincare recommendations not available.")
+        return
+    
+    st.markdown("### 💄 **Ayurvedic Beauty & Skincare**")
+    st.info("Natural beauty rituals for your unique prakriti.")
+    
+    # Skin Type
+    st.markdown(f"#### 🎯 **Your Skin Type:** {beauty_data.get('skin_type', '')}")
+    
+    # Gender-specific routines
+    st.markdown("---")
+    st.markdown("#### 🛁 **Gender-Specific Routines**")
+    
+    gender_col1, gender_col2 = st.columns(2)
+    
+    with gender_col1:
+        st.markdown("##### 👨 **Men's Grooming**")
+        for tip in beauty_data.get("male_specific", []):
+            st.markdown(f"• {tip}")
+    
+    with gender_col2:
+        st.markdown("##### 👩 **Women's Beauty**")
+        for tip in beauty_data.get("female_specific", []):
+            st.markdown(f"• {tip}")
+    
+    # Skincare Routine
+    st.markdown("---")
+    st.markdown("#### 🌸 **Daily Skincare Ritual**")
+    
+    routine_col1, routine_col2 = st.columns(2)
+    
+    with routine_col1:
+        st.markdown("**Cleansing:**")
+        st.info(beauty_data.get("cleansing", ""))
+        
+        st.markdown("**Moisturizing:**")
+        st.info(beauty_data.get("moisturizing", ""))
+    
+    with routine_col2:
+        st.markdown("**Weekly Face Masks:**")
+        for mask in beauty_data.get("face_masks", []):
+            st.success(f"• {mask}")
+        
+        st.markdown("**Hair Care:**")
+        for tip in beauty_data.get("hair_care", []):
+            st.info(f"• {tip}")
+    
+    # Problem Areas & Treatments
+    with st.expander("🔍 **Problem Areas & Ayurvedic Treatments**", expanded=False):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Common Problem Areas:**")
+            for problem in beauty_data.get("problem_areas", []):
+                st.warning(f"• {problem}")
+            
+            st.markdown("**Seasonal Care:**")
+            st.info("""
+            - **Spring:** Focus on detox and cleansing
+            - **Summer:** Emphasize sun protection and cooling
+            - **Autumn:** Prepare skin for dryness
+            - **Winter:** Intensive moisturizing and protection
+            """)
+        
+        with col2:
+            st.markdown("**Ayurvedic Treatments:**")
+            for treatment in beauty_data.get("ayurvedic_treatments", []):
+                st.success(f"• {treatment}")
+            
+            st.markdown("**Ancient Beauty Secrets:**")
+            st.info("""
+            - Beauty starts from within (Ahara)
+            - Seasonal detox (Panchakarma)
+            - Daily self-massage (Abhyanga)
+            - Proper sleep (Nidra) for skin renewal
+            """)
+
+# =============================
+# PERFUME & SCENTS SECTION
+# =============================
+def display_perfume_section(dosha_data):
+    """Display perfume and aromatherapy recommendations"""
+    
+    perfume_data = dosha_data.get("perfume_recommendations", {})
+    
+    if not perfume_data:
+        st.warning("Perfume recommendations not available for this dosha.")
+        return
+    
+    # Main Perfume Section
+    st.markdown("### 🌸 **Sacred Scents & Perfume Wisdom**")
+    st.info("According to Ayurveda, scents directly influence your mind and energy. Choose perfumes that balance your dosha.")
+    
+    # Top Scents
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("#### 🎯 **Top Scents for You**")
+        for scent in perfume_data.get("top_scents", []):
+            st.markdown(f"• **{scent}**")
+        
+        st.markdown("#### ✅ **Notes to Embrace**")
+        for note in perfume_data.get("notes_to_embrace", []):
+            st.success(f"• {note}")
+    
+    with col2:
+        st.markdown("#### ⚠️ **Notes to Avoid**")
+        for note in perfume_data.get("notes_to_avoid", []):
+            st.warning(f"• {note}")
+        
+        st.markdown("#### 🎭 **Best Perfume Types**")
+        for perfume_type in perfume_data.get("best_perfume_types", []):
+            st.info(f"• {perfume_type}")
+    
+    # Application Tips
+    with st.expander("💡 **Application & Ayurvedic Wisdom**", expanded=False):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Application Tips:**")
+            st.info(perfume_data.get("application_tips", ""))
+            
+            st.markdown("**Ayurvedic Blend:**")
+            st.success(perfume_data.get("ayurvedic_blend", ""))
+        
+        with col2:
+            st.markdown("**Famous Perfume Examples:**")
+            for perfume in perfume_data.get("famous_perfumes", []):
+                st.markdown(f"• {perfume}")
+    
+    # Seasonal Scents
+    with st.expander("🍂 **Seasonal Scents Guide**", expanded=False):
+        seasonal_data = perfume_data.get("seasonal_scents", {})
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("**Spring:**")
+            st.info(seasonal_data.get("Spring", ""))
+            
+            st.markdown("**Summer:**")
+            st.info(seasonal_data.get("Summer", ""))
+        
+        with col2:
+            st.markdown("**Autumn:**")
+            st.info(seasonal_data.get("Autumn", ""))
+            
+            st.markdown("**Winter:**")
+            st.info(seasonal_data.get("Winter", ""))
+    
+    # Ancient Perfume Rituals
+    with st.expander("🕯️ **Ancient Perfume Rituals**", expanded=False):
+        st.markdown("""
+        **Vedic Gandha (Perfume) Traditions:**
+        - Apply perfume after morning bath during Brahma Muhurta (5-6 AM)
+        - Use natural attars (essential oil perfumes) over synthetic fragrances
+        - Apply to pulse points to enhance scent diffusion
+        - Match your perfume to the season and time of day
+        - Practice scent fasting (no perfume) one day a week
+        """)
 
 # =============================
 # QUESTION TOGGLE COMPONENT
@@ -2053,9 +2478,10 @@ def main():
             # Dosha Chart
             create_dosha_chart_streamlit(st.session_state.scores)
             
-            # Tabs for different sections
-            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-                "📖 Story", "👁️ Body", "🧠 Personality", "🌟 Horoscope", "🧘 Daily Life", "🥗 Nutrition"
+            # Tabs for different sections - UPDATED TO INCLUDE NEW TABS
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
+                "📖 Story", "👁️ Body", "🧠 Personality", "🌟 Horoscope", "🧘 Daily Life", 
+                "🥗 Nutrition", "🌸 Perfume", "🌿 Herbs", "💄 Beauty"
             ])
             
             with tab1:
@@ -2140,6 +2566,18 @@ def main():
                     st.markdown("• Chew each bite 32 times")
                     st.markdown("• Sit down to eat mindfully")
                     st.markdown("• Stop when 3/4 full")
+            
+            with tab7:
+                # Perfume & Scents Section
+                display_perfume_section(dosha_data)
+            
+            with tab8:
+                # NEW: Herbs & Supplements Section
+                display_herbs_supplements_section(dosha_data)
+            
+            with tab9:
+                # NEW: Beauty & Skincare Section
+                display_beauty_skincare_section(dosha_data)
             
             # Reset Button
             st.markdown("---")
