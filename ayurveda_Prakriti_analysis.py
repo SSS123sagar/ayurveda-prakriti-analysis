@@ -2078,6 +2078,954 @@ def display_perfume_section(dosha_data):
         """)
 
 # =============================
+# NEW: EXERCISE, FASTING & DIET SECTION
+# =============================
+def display_exercise_fasting_diet_section(dosha_data, main_dosha):
+    """Display comprehensive exercise, fasting, and diet recommendations"""
+    
+    st.markdown("### 💪 **Exercise, Fasting & Diet Mastery**")
+    st.info("Complete lifestyle guidance tailored to your dosha for optimal health and balance.")
+    
+    # Dosha-specific recommendations
+    dosha_recommendations = {
+        "Vata": {
+            "exercise": {
+                "type": "Gentle, grounding, calming",
+                "recommended": [
+                    "Yoga (Hatha, Restorative, Yin)",
+                    "Tai Chi & Qigong",
+                    "Gentle walking in nature",
+                    "Swimming (warm water)",
+                    "Pilates (gentle)",
+                    "Light cycling",
+                    "Dancing (slow, fluid movements)"
+                ],
+                "intensity": "Low to moderate (40-60% max effort)",
+                "duration": "20-45 minutes maximum",
+                "best_time": "10 AM - 12 PM or 6-7 PM",
+                "frequency": "4-5 times per week, with rest days",
+                "avoid": [
+                    "High-impact exercises",
+                    "Long-distance running",
+                    "Extreme cardio",
+                    "Competitive sports",
+                    "Exercising when tired or stressed"
+                ],
+                "benefits": "Grounds energy, calms nervous system, improves circulation gently",
+                "caution": "Never exercise to exhaustion. Stop at first sign of fatigue."
+            },
+            "fasting": {
+                "recommended": "Mild, intermittent fasting only",
+                "schedule": "12-14 hour overnight fast (7 PM - 7 AM)",
+                "duration": "Maximum 14 hours",
+                "best_type": [
+                    "Warm liquid fasting (herbal teas, warm water)",
+                    "Fruit fasting (sweet fruits only)",
+                    "Kitchari mono-diet"
+                ],
+                "frequency": "1-2 times per month, not during Vata season",
+                "avoid": [
+                    "Dry fasting",
+                    "Water-only fasting beyond 16 hours",
+                    "Fasting during autumn/winter",
+                    "Fasting when anxious or stressed"
+                ],
+                "benefits": "Gentle detox, improves digestion, resets appetite",
+                "warning": "Vatas should never do prolonged fasting. Always break fast with warm, oily food."
+            },
+            "diet_philosophy": {
+                "primary": "Warm, moist, grounding, nourishing",
+                "meals": "Regular, consistent meal times",
+                "quantity": "Moderate portions, never skip meals",
+                "temperature": "Always warm or hot, never cold",
+                "texture": "Soft, moist, well-cooked"
+            },
+            "keto_compatibility": {
+                "status": "NOT RECOMMENDED",
+                "reason": "Keto is too drying, light, and cold for Vata",
+                "if_attempting": [
+                    "Use generous amounts of ghee and oils",
+                    "Include root vegetables",
+                    "Drink warm herbal teas",
+                    "Avoid raw vegetables",
+                    "Supplement with warming spices"
+                ],
+                "better_alternative": "Ayurvedic balancing diet with whole grains, healthy fats, and cooked vegetables"
+            },
+            "veg_nonveg": {
+                "vegetarian": "HIGHLY RECOMMENDED",
+                "recommended_veg": [
+                    "Ghee (clarified butter)",
+                    "Soaked nuts and seeds",
+                    "Whole milk (warm)",
+                    "Paneer (fresh cheese)",
+                    "Eggs (soft boiled or scrambled)"
+                ],
+                "non_vegetarian": "Minimal, if at all",
+                "if_nonveg": [
+                    "Chicken soup (well-cooked)",
+                    "Fish (oily, warm water fish)",
+                    "Bone broth",
+                    "Avoid: Beef, pork, lamb"
+                ],
+                "protein_timing": "Lunch time only, never at dinner"
+            },
+            "meal_timing": {
+                "breakfast": "7-8 AM: Warm cooked cereal with ghee and spices",
+                "lunch": "12-1 PM: Main meal - grains, vegetables, protein",
+                "dinner": "6-7 PM: Light soup or kitchari",
+                "snacks": "10 AM & 4 PM: Warm milk, soaked nuts, sweet fruit"
+            }
+        },
+        "Pitta": {
+            "exercise": {
+                "type": "Moderate, cooling, non-competitive",
+                "recommended": [
+                    "Swimming (cool water)",
+                    "Yoga (Moon salutations, cooling poses)",
+                    "Cycling (early morning or evening)",
+                    "Hiking in nature",
+                    "Dancing (fluid, non-competitive)",
+                    "Strength training (moderate)",
+                    "Team sports (non-competitive)"
+                ],
+                "intensity": "Moderate (60-70% max effort)",
+                "duration": "30-60 minutes",
+                "best_time": "6-10 AM or 6-8 PM (avoid midday heat)",
+                "frequency": "5-6 times per week",
+                "avoid": [
+                    "Hot yoga/Bikram yoga",
+                    "Exercising in direct sun",
+                    "Competitive sports",
+                    "Anger-driven workouts",
+                    "Exercising during Pitta time (10 AM-2 PM)"
+                ],
+                "benefits": "Cools the system, reduces inflammation, releases tension",
+                "caution": "Stop before sweating profusely. Stay hydrated with cool water."
+            },
+            "fasting": {
+                "recommended": "YES, very beneficial",
+                "schedule": "14-16 hour overnight fast",
+                "duration": "16 hours maximum, 1-2 days per week",
+                "best_type": [
+                    "Fruit fasting (sweet fruits)",
+                    "Juice fasting (sweet vegetable juices)",
+                    "Monodiet (rice or kitchari)"
+                ],
+                "frequency": "Once per week, especially in summer",
+                "avoid": [
+                    "Dry fasting",
+                    "Spicy food breaking fast",
+                    "Fasting when angry or irritated"
+                ],
+                "benefits": "Reduces acidity, cools digestion, improves mental clarity",
+                "warning": "Break fast gently with cooling foods. Never overeat after fasting."
+            },
+            "diet_philosophy": {
+                "primary": "Cooling, sweet, bitter, astringent",
+                "meals": "Regular but lighter than other doshas",
+                "quantity": "Moderate, stop at 75% full",
+                "temperature": "Cool or room temperature",
+                "texture": "Moist but not oily"
+            },
+            "keto_compatibility": {
+                "status": "MODERATELY COMPATIBLE with modifications",
+                "reason": "Keto can increase heat and acidity if not balanced",
+                "if_attempting": [
+                    "Focus on cooling fats (coconut, ghee)",
+                    "Include plenty of leafy greens",
+                    "Avoid spicy keto foods",
+                    "Drink cooling herbal teas",
+                    "Monitor for increased acidity"
+                ],
+                "better_alternative": "Ayurvedic cooling diet with balanced macronutrients"
+            },
+            "veg_nonveg": {
+                "vegetarian": "STRONGLY RECOMMENDED",
+                "recommended_veg": [
+                    "Coconut products",
+                    "Ghee (moderate)",
+                    "Milk and dairy (cool)",
+                    "Moong dal",
+                    "Fresh paneer"
+                ],
+                "non_vegetarian": "Minimal, cooling types only",
+                "if_nonveg": [
+                    "White meat chicken (boiled)",
+                    "Freshwater fish",
+                    "Avoid: Red meat, seafood, eggs"
+                ],
+                "protein_timing": "Lunch only, never at dinner"
+            },
+            "meal_timing": {
+                "breakfast": "7-8 AM: Sweet fruits or cool cereal",
+                "lunch": "12-1 PM: Main meal - grains, vegetables, light protein",
+                "dinner": "6-7 PM: Very light - soup or vegetables",
+                "snacks": "10 AM & 4 PM: Coconut water, sweet fruits, cucumber"
+            }
+        },
+        "Kapha": {
+            "exercise": {
+                "type": "Vigorous, stimulating, energizing",
+                "recommended": [
+                    "Running/jogging",
+                    "High-intensity interval training (HIIT)",
+                    "Strength training",
+                    "Vinyasa yoga",
+                    "Dancing (energetic)",
+                    "Cycling (uphill)",
+                    "Team sports",
+                    "Jumping rope",
+                    "Swimming (vigorous)"
+                ],
+                "intensity": "High (70-85% max effort)",
+                "duration": "45-90 minutes",
+                "best_time": "6-10 AM (Kapha time for maximum benefit)",
+                "frequency": "6-7 times per week",
+                "avoid": [
+                    "Sedentary lifestyle",
+                    "Exercising after eating",
+                    "Slow, gentle exercise only",
+                    "Skipping workouts"
+                ],
+                "benefits": "Stimulates metabolism, reduces congestion, increases energy",
+                "caution": "Push yourself but listen to your body. Variety is key to avoid boredom."
+            },
+            "fasting": {
+                "recommended": "YES, highly beneficial",
+                "schedule": "16-18 hour intermittent fasting",
+                "duration": "Up to 24 hours, 1-2 times per week",
+                "best_type": [
+                    "Water fasting (short duration)",
+                    "Juice fasting (bitter vegetable juices)",
+                    "Dry fasting (experienced only)",
+                    "Monodiet (light grains)"
+                ],
+                "frequency": "2-3 times per week, especially in spring",
+                "avoid": [
+                    "Breaking fast with heavy foods",
+                    "Fasting when already lethargic",
+                    "Skipping warm water during fast"
+                ],
+                "benefits": "Reduces congestion, stimulates digestion, promotes weight loss",
+                "warning": "Kapha can handle longer fasts but should break fast with light, warm food."
+            },
+            "diet_philosophy": {
+                "primary": "Light, dry, warm, stimulating",
+                "meals": "Smaller, more frequent meals",
+                "quantity": "Less than other doshas, stop at 50-75% full",
+                "temperature": "Hot or warm",
+                "texture": "Light, dry, well-spiced"
+            },
+            "keto_compatibility": {
+                "status": "HIGHLY COMPATIBLE",
+                "reason": "Keto diet aligns with Kapha's need for light, warm, stimulating food",
+                "if_attempting": [
+                    "Emphasize lean proteins",
+                    "Include plenty of vegetables",
+                    "Use spices generously",
+                    "Maintain intermittent fasting",
+                    "Stay hydrated with warm water"
+                ],
+                "better_alternative": "Ayurvedic Kapha-reducing diet with keto principles"
+            },
+            "veg_nonveg": {
+                "vegetarian": "Recommended with caution",
+                "recommended_veg": [
+                    "Legumes and beans",
+                    "Light dairy (goat milk)",
+                    "Small amounts of ghee",
+                    "Bitter vegetables"
+                ],
+                "non_vegetarian": "Acceptable in moderation",
+                "if_nonveg": [
+                    "Lean chicken",
+                    "Fish",
+                    "Egg whites",
+                    "Avoid: Red meat, pork, heavy meats"
+                ],
+                "protein_timing": "Lunch and occasionally breakfast"
+            },
+            "meal_timing": {
+                "breakfast": "6-7 AM: Light protein or skipped (if fasting)",
+                "lunch": "12-1 PM: Main meal - light grains, vegetables, protein",
+                "dinner": "5-6 PM: Very light - soup or steamed vegetables",
+                "snacks": "Minimal, only if truly hungry"
+            }
+        }
+    }
+    
+    rec = dosha_recommendations[main_dosha]
+    
+    # Create tabs for Exercise, Fasting, and Diet
+    tab1, tab2, tab3, tab4 = st.tabs(["💪 Exercise", "⏳ Fasting", "🥗 Diet Philosophy", "📊 Detailed Guidelines"])
+    
+    with tab1:
+        st.markdown("#### 🏃 **Exercise Recommendations**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Type & Intensity:**")
+            st.success(f"**Type:** {rec['exercise']['type']}")
+            st.info(f"**Intensity:** {rec['exercise']['intensity']}")
+            st.info(f"**Duration:** {rec['exercise']['duration']}")
+            st.info(f"**Frequency:** {rec['exercise']['frequency']}")
+            st.success(f"**Best Time:** {rec['exercise']['best_time']}")
+            
+            st.markdown("**Benefits:**")
+            st.info(rec['exercise']['benefits'])
+        
+        with col2:
+            st.markdown("**Recommended Activities:**")
+            for activity in rec['exercise']['recommended']:
+                st.markdown(f"• {activity}")
+            
+            st.markdown("**Activities to Avoid:**")
+            for activity in rec['exercise']['avoid']:
+                st.warning(f"• {activity}")
+            
+            st.markdown("**Caution:**")
+            st.error(rec['exercise']['caution'])
+    
+    with tab2:
+        st.markdown("#### ⏳ **Fasting Guidelines**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Fasting Compatibility:**")
+            if main_dosha == "Vata":
+                st.error(f"**{rec['fasting']['recommended']}**")
+            elif main_dosha == "Pitta":
+                st.success(f"**{rec['fasting']['recommended']}**")
+            else:  # Kapha
+                st.success(f"**{rec['fasting']['recommended']}**")
+            
+            st.info(f"**Schedule:** {rec['fasting']['schedule']}")
+            st.info(f"**Duration:** {rec['fasting']['duration']}")
+            st.info(f"**Frequency:** {rec['fasting']['frequency']}")
+            
+            st.markdown("**Best Fasting Types:**")
+            for ft in rec['fasting']['best_type']:
+                st.success(f"• {ft}")
+            
+            st.markdown("**Benefits:**")
+            st.info(rec['fasting']['benefits'])
+        
+        with col2:
+            st.markdown("**Fasting Methods to Avoid:**")
+            for avoid in rec['fasting']['avoid']:
+                st.warning(f"• {avoid}")
+            
+            st.markdown("**Important Warning:**")
+            st.error(rec['fasting']['warning'])
+            
+            # Seasonal Fasting Guidance
+            st.markdown("**Seasonal Considerations:**")
+            if main_dosha == "Vata":
+                st.info("""
+                - **Spring:** Mild fasting okay
+                - **Summer:** Minimal fasting
+                - **Autumn:** NO fasting (Vata season)
+                - **Winter:** NO fasting (Vata aggravating)
+                """)
+            elif main_dosha == "Pitta":
+                st.info("""
+                - **Spring:** Good for cleansing
+                - **Summer:** EXCELLENT for cooling
+                - **Autumn:** Moderate fasting
+                - **Winter:** Minimal fasting
+                """)
+            else:  # Kapha
+                st.info("""
+                - **Spring:** EXCELLENT for detox
+                - **Summer:** Good, but stay hydrated
+                - **Autumn:** Moderate fasting
+                - **Winter:** Minimal fasting
+                """)
+    
+    with tab3:
+        st.markdown("#### 🥗 **Diet Philosophy & Special Diets**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Core Diet Philosophy:**")
+            for key, value in rec['diet_philosophy'].items():
+                st.info(f"**{key.replace('_', ' ').title()}:** {value}")
+            
+            st.markdown("**Keto Diet Compatibility:**")
+            if rec['keto_compatibility']['status'] == "NOT RECOMMENDED":
+                st.error(f"**{rec['keto_compatibility']['status']}**")
+            elif rec['keto_compatibility']['status'] == "MODERATELY COMPATIBLE":
+                st.warning(f"**{rec['keto_compatibility']['status']}**")
+            else:
+                st.success(f"**{rec['keto_compatibility']['status']}**")
+            
+            st.markdown(f"**Reason:** {rec['keto_compatibility']['reason']}")
+            
+            if rec['keto_compatibility']['status'] != "NOT RECOMMENDED":
+                st.markdown("**If Attempting Keto:**")
+                for tip in rec['keto_compatibility']['if_attempting']:
+                    st.info(f"• {tip}")
+        
+        with col2:
+            st.markdown("**Vegetarian vs Non-Vegetarian:**")
+            if rec['veg_nonveg']['vegetarian'] == "HIGHLY RECOMMENDED":
+                st.success(f"**Vegetarian:** {rec['veg_nonveg']['vegetarian']}")
+            elif rec['veg_nonveg']['vegetarian'] == "STRONGLY RECOMMENDED":
+                st.success(f"**Vegetarian:** {rec['veg_nonveg']['vegetarian']}")
+            else:
+                st.warning(f"**Vegetarian:** {rec['veg_nonveg']['vegetarian']}")
+            
+            st.markdown("**Recommended Vegetarian Foods:**")
+            for food in rec['veg_nonveg']['recommended_veg']:
+                st.success(f"• {food}")
+            
+            st.markdown(f"**Non-Vegetarian:** {rec['veg_nonveg']['non_vegetarian']}")
+            if rec['veg_nonveg']['non_vegetarian'] != "Avoid completely":
+                st.markdown("**If Consuming Non-Veg:**")
+                for item in rec['veg_nonveg']['if_nonveg']:
+                    st.info(f"• {item}")
+            
+            st.info(f"**Protein Timing:** {rec['veg_nonveg']['protein_timing']}")
+    
+    with tab4:
+        st.markdown("#### 📊 **Detailed Daily Guidelines**")
+        
+        # Meal Timing
+        st.markdown("**🍽️ Ideal Meal Timing:**")
+        meal_col1, meal_col2 = st.columns(2)
+        
+        with meal_col1:
+            st.success(f"**Breakfast:** {rec['meal_timing']['breakfast']}")
+            st.info(f"**Lunch:** {rec['meal_timing']['lunch']}")
+        
+        with meal_col2:
+            st.warning(f"**Dinner:** {rec['meal_timing']['dinner']}")
+            st.info(f"**Snacks:** {rec['meal_timing']['snacks']}")
+        
+        st.divider()
+        
+        # Seasonal Adjustments
+        st.markdown("**🍂 Seasonal Adjustments:**")
+        
+        seasonal_col1, seasonal_col2, seasonal_col3 = st.columns(3)
+        
+        with seasonal_col1:
+            st.markdown("**Spring:**")
+            if main_dosha == "Kapha":
+                st.error("**Kapha Aggravation Season**")
+                st.info("""
+                - Increase exercise
+                - More fasting
+                - Light, dry foods
+                - Avoid dairy
+                """)
+            else:
+                st.info("Gentle detox, lighter foods")
+        
+        with seasonal_col2:
+            st.markdown("**Summer:**")
+            if main_dosha == "Pitta":
+                st.error("**Pitta Aggravation Season**")
+                st.info("""
+                - Cooling foods
+                - Moderate exercise
+                - Stay hydrated
+                - Avoid sun exposure
+                """)
+            else:
+                st.info("Stay cool, hydrated")
+        
+        with seasonal_col3:
+            st.markdown("**Autumn/Winter:**")
+            if main_dosha == "Vata":
+                st.error("**Vata Aggravation Season**")
+                st.info("""
+                - Warm, oily foods
+                - Gentle exercise
+                - No fasting
+                - Regular routine
+                """)
+            else:
+                st.info("Warming foods, moderate exercise")
+        
+        st.divider()
+        
+        # Additional Tips
+        st.markdown("**💡 Additional Ayurvedic Wisdom:**")
+        
+        tips_col1, tips_col2 = st.columns(2)
+        
+        with tips_col1:
+            st.markdown("**For Optimal Digestion:**")
+            st.info("""
+            • Eat in calm environment
+            • Chew food thoroughly
+            • Sit for 5 minutes after meals
+            • Drink warm water with meals
+            • Follow food combining rules
+            """)
+        
+        with tips_col2:
+            st.markdown("**For Exercise Success:**")
+            st.info("""
+            • Listen to your body
+            • Respect your energy levels
+            • Align with natural rhythms
+            • Include variety
+            • Rest when needed
+            """)
+        
+        # Warning Section
+        st.markdown("**⚠️ Important Warnings:**")
+        if main_dosha == "Vata":
+            st.error("""
+            **VATA-SPECIFIC WARNINGS:**
+            1. NEVER exercise to exhaustion
+            2. NEVER skip meals
+            3. NEVER do prolonged fasting
+            4. ALWAYS eat warm, cooked foods
+            5. ALWAYS maintain regular routine
+            """)
+        elif main_dosha == "Pitta":
+            st.error("""
+            **PITTA-SPECIFIC WARNINGS:**
+            1. NEVER exercise in midday heat
+            2. AVOID competitive exercise
+            3. DON'T overdo spicy foods
+            4. BREAK fasts gently
+            5. MANAGE anger during workouts
+            """)
+        else:  # Kapha
+            st.error("""
+            **KAPHA-SPECIFIC WARNINGS:**
+            1. DON'T skip exercise
+            2. AVOID sedentary lifestyle
+            3. DON'T overeat
+            4. BREAK fasts with light food
+            5. AVOID cold, heavy foods
+            """)
+
+# =============================
+# NEW: COMPREHENSIVE HEALTH ISSUES SECTION
+# =============================
+def display_health_issues_section(dosha_data, main_dosha):
+    """Display comprehensive health issues from Ayurvedic perspective"""
+    
+    st.markdown("### 🏥 **Ayurvedic Health & Disease Prevention**")
+    st.info("Understanding health vulnerabilities from the Ayurvedic perspective helps prevent imbalances before they manifest as disease.")
+    
+    # Comprehensive health data for each dosha
+    health_data = {
+        "Vata": {
+            "ayurvedic_principles": {
+                "root_cause": "Imbalance of Air & Ether elements leading to dryness, coldness, and irregularity",
+                "primary_dhatus_affected": ["Rasa (plasma)", "Majja (bone marrow)", "Shukra/Artava (reproductive tissue)"],
+                "primary_srotas_affected": ["Prana Vaha (respiratory)", "Anna Vaha (digestive)", "Purisha Vaha (elimination)"],
+                "agni_state": "Variable (Vishamagni) - irregular digestive fire",
+                "ama_formation": "Tends to form dry, hard ama that settles in joints and colon",
+                "immunity_type": "Variable immunity, strong when balanced but weak when stressed"
+            },
+            "common_health_issues": {
+                "nervous_system": [
+                    "Anxiety, panic attacks, restlessness",
+                    "Insomnia, sleep disturbances",
+                    "Nervous tics, tremors, muscle spasms",
+                    "Memory problems, brain fog",
+                    "Sensitivity to noise and light"
+                ],
+                "digestive_system": [
+                    "Irritable Bowel Syndrome (IBS)",
+                    "Constipation, bloating, gas",
+                    "Irregular appetite, malabsorption",
+                    "Dry stools, fissures, hemorrhoids",
+                    "Weight loss despite eating"
+                ],
+                "musculoskeletal": [
+                    "Arthritis (especially osteoarthritis)",
+                    "Joint pain, cracking joints",
+                    "Dryness in joints, reduced synovial fluid",
+                    "Muscle wasting, weakness",
+                    "Osteoporosis, brittle bones"
+                ],
+                "reproductive_health": [
+                    "Menstrual irregularities, scanty flow",
+                    "Infertility, low sperm count",
+                    "Vaginal dryness, painful intercourse",
+                    "Premature ejaculation",
+                    "Low libido when imbalanced"
+                ],
+                "other_systems": [
+                    "Dry skin, eczema, psoriasis",
+                    "Constipation, fissures, hemorrhoids",
+                    "Tinnitus, hearing issues",
+                    "Cold intolerance, poor circulation",
+                    "Premature aging, wrinkles"
+                ]
+            },
+            "prevention_strategies": {
+                "daily_routine": "Strict Dinacharya (daily routine), regular meal times, early bedtime",
+                "diet": "Warm, moist, oily foods; regular meals; avoid fasting",
+                "lifestyle": "Minimize stress, avoid excessive travel, maintain routine",
+                "seasonal_care": "Extra care in autumn and winter; oil massage daily",
+                "mental_health": "Meditation, pranayama, avoid overthinking"
+            },
+            "ayurvedic_treatments": {
+                "panchakarma": ["Basti (medicated enema)", "Nasya (nasal administration)", "Shirodhara"],
+                "external_therapies": ["Abhyanga (oil massage)", "Pinda Sweda (herbal bolus)", "Padabhyanga (foot massage)"],
+                "internal_medicines": ["Ashwagandha", "Bala", "Shatavari", "Dashamoola"],
+                "home_remedies": ["Warm milk with ghee", "Sesame oil massage", "Ginger tea"]
+            },
+            "warning_signs": [
+                "Weight loss without trying",
+                "Chronic constipation",
+                "Persistent anxiety or insomnia",
+                "Joint pain worsening with cold",
+                "Dry skin and hair getting worse"
+            ],
+            "modern_correlations": [
+                "Neurodegenerative diseases (early stages)",
+                "Autoimmune conditions when combined with Pitta",
+                "Anxiety disorders, panic attacks",
+                "Irritable Bowel Syndrome",
+                "Osteoarthritis, osteoporosis"
+            ]
+        },
+        "Pitta": {
+            "ayurvedic_principles": {
+                "root_cause": "Excess Fire element leading to heat, inflammation, and acidity",
+                "primary_dhatus_affected": ["Rakta (blood)", "Mamsa (muscle)", "Meda (fat)"],
+                "primary_srotas_affected": ["Rakta Vaha (circulatory)", "Pitta Vaha (metabolic)", "Sweda Vaha (sweat)"],
+                "agni_state": "Sharp (Tikshagni) - strong but potentially excessive digestive fire",
+                "ama_formation": "Forms hot, sharp ama that causes inflammation and acidity",
+                "immunity_type": "Strong immunity but prone to inflammatory and autoimmune conditions"
+            },
+            "common_health_issues": {
+                "inflammatory_conditions": [
+                    "Acid reflux, GERD, ulcers",
+                    "Inflammatory bowel disease",
+                    "Skin inflammations (acne, rosacea, eczema)",
+                    "Autoimmune disorders",
+                    "Tendinitis, bursitis"
+                ],
+                "digestive_system": [
+                    "Hyperacidity, heartburn",
+                    "Inflammatory bowel conditions",
+                    "Hemorrhoids (bleeding type)",
+                    "Excessive hunger, rapid digestion",
+                    "Food sensitivities"
+                ],
+                "skin_conditions": [
+                    "Acne, rosacea, rashes",
+                    "Hives, allergic reactions",
+                    "Excessive sweating, body odor",
+                    "Premature greying, hair loss",
+                    "Skin cancer risk (with sun exposure)"
+                ],
+                "metabolic_issues": [
+                    "Hypertension, high blood pressure",
+                    "High cholesterol (inflammatory type)",
+                    "Diabetes (inflammatory component)",
+                    "Gallstones, liver issues",
+                    "Metabolic syndrome"
+                ],
+                "other_systems": [
+                    "Migraines, tension headaches",
+                    "Eye inflammation, conjunctivitis",
+                    "Bleeding disorders, anemia",
+                    "Fever, infections (acute)",
+                    "Anger issues, irritability"
+                ]
+            },
+            "prevention_strategies": {
+                "daily_routine": "Avoid midday sun, regular cooling practices",
+                "diet": "Cooling foods, avoid spicy/fermented foods, eat at regular times",
+                "lifestyle": "Manage stress, avoid excessive competition, practice cooling activities",
+                "seasonal_care": "Extra care in summer; cooling therapies",
+                "mental_health": "Meditation, forgiveness practices, anger management"
+            },
+            "ayurvedic_treatments": {
+                "panchakarma": ["Virechana (therapeutic purgation)", "Raktamokshana (bloodletting in some cases)"],
+                "external_therapies": ["Takradhara (buttermilk flow)", "Chandana Lepa (sandalwood paste)", "Sheetali baths"],
+                "internal_medicines": ["Guduchi", "Amla", "Manjistha", "Shatavari"],
+                "home_remedies": ["Coconut water", "Aloe vera juice", "Coriander water", "Rose water"]
+            },
+            "warning_signs": [
+                "Persistent heartburn or acidity",
+                "Skin rashes or inflammation",
+                "Excessive anger or irritability",
+                "Bleeding disorders",
+                "Feverish feelings without infection"
+            ],
+            "modern_correlations": [
+                "Autoimmune diseases (Lupus, Rheumatoid Arthritis)",
+                "Inflammatory bowel disease",
+                "Hypertension, cardiovascular disease",
+                "Acne, rosacea, psoriasis",
+                "GERD, peptic ulcers"
+            ]
+        },
+        "Kapha": {
+            "ayurvedic_principles": {
+                "root_cause": "Excess Earth & Water elements leading to heaviness, congestion, and stagnation",
+                "primary_dhatus_affected": ["Meda (fat)", "Mamsa (muscle)", "Shleshma (mucous)"],
+                "primary_srotas_affected": ["Kapha Vaha (respiratory mucus)", "Meda Vaha (fat metabolism)", "Mootra Vaha (urinary)"],
+                "agni_state": "Slow (Mandagni) - sluggish digestive fire",
+                "ama_formation": "Forms heavy, sticky ama that causes congestion and stagnation",
+                "immunity_type": "Strong immunity but prone to congestive and metabolic disorders"
+            },
+            "common_health_issues": {
+                "respiratory_system": [
+                    "Asthma, bronchitis",
+                    "Sinusitis, nasal congestion",
+                    "Allergies, hay fever",
+                    "Sleep apnea, snoring",
+                    "Excessive mucus production"
+                ],
+                "metabolic_disorders": [
+                    "Obesity, weight gain",
+                    "Diabetes mellitus type 2",
+                    "High cholesterol, triglycerides",
+                    "Metabolic syndrome",
+                    "Hypothyroidism"
+                ],
+                "digestive_system": [
+                    "Slow digestion, lethargy after meals",
+                    "Water retention, edema",
+                    "Nausea, sluggish bowels",
+                    "Food sensitivities (dairy, wheat)",
+                    "Gallstones (cholesterol type)"
+                ],
+                "joint_issues": [
+                    "Osteoarthritis (with stiffness)",
+                    "Joint swelling, edema",
+                    "Gout (in combination with Pitta)",
+                    "Reduced mobility, stiffness",
+                    "Water retention in joints"
+                ],
+                "other_systems": [
+                    "Depression, seasonal affective disorder",
+                    "Lethargy, excessive sleep",
+                    "Cysts, benign tumors",
+                    "Swollen lymph nodes",
+                    "Water retention, cellulite"
+                ]
+            },
+            "prevention_strategies": {
+                "daily_routine": "Early rising, vigorous exercise, regular fasting",
+                "diet": "Light, dry, warm foods; avoid heavy meals; regular fasting",
+                "lifestyle": "Active lifestyle, avoid sedentary habits, regular detox",
+                "seasonal_care": "Extra care in spring; regular detoxification",
+                "mental_health": "Stimulation, new experiences, avoid stagnation"
+            },
+            "ayurvedic_treatments": {
+                "panchakarma": ["Vamana (therapeutic emesis)", "Nasya (with stimulating herbs)"],
+                "external_therapies": ["Udvartana (dry powder massage)", "Swedana (herbal steam)", "Lepa (herbal pastes)"],
+                "internal_medicines": ["Triphala", "Guggulu", "Punarnava", "Chitrak"],
+                "home_remedies": ["Ginger tea", "Honey water", "Dry brushing", "Hot water with spices"]
+            },
+            "warning_signs": [
+                "Unexplained weight gain",
+                "Persistent congestion or mucus",
+                "Excessive sleep or lethargy",
+                "Water retention, swelling",
+                "Depression or lack of motivation"
+            ],
+            "modern_correlations": [
+                "Metabolic syndrome, obesity",
+                "Type 2 diabetes",
+                "Hypothyroidism",
+                "Depression (melancholic type)",
+                "Asthma, COPD, sleep apnea"
+            ]
+        }
+    }
+    
+    health_rec = health_data[main_dosha]
+    
+    # Create tabs for different aspects of health
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["🧬 Ayurvedic Principles", "🩺 Common Issues", "🛡️ Prevention", "🌿 Treatments", "⚠️ Warning Signs"])
+    
+    with tab1:
+        st.markdown("#### 🧬 **Ayurvedic Understanding of Health**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Root Cause of Imbalance:**")
+            st.error(health_rec["ayurvedic_principles"]["root_cause"])
+            
+            st.markdown("**Primary Tissues Affected (Dhatus):**")
+            for dhatu in health_rec["ayurvedic_principles"]["primary_dhatus_affected"]:
+                st.info(f"• {dhatu}")
+            
+            st.markdown("**Digestive Fire State (Agni):**")
+            st.warning(health_rec["ayurvedic_principles"]["agni_state"])
+        
+        with col2:
+            st.markdown("**Primary Channels Affected (Srotas):**")
+            for srota in health_rec["ayurvedic_principles"]["primary_srotas_affected"]:
+                st.success(f"• {srota}")
+            
+            st.markdown("**Toxin Formation (Ama):**")
+            st.error(health_rec["ayurvedic_principles"]["ama_formation"])
+            
+            st.markdown("**Immunity Type:**")
+            st.info(health_rec["ayurvedic_principles"]["immunity_type"])
+    
+    with tab2:
+        st.markdown("#### 🩺 **Common Health Issues by System**")
+        
+        # Create expanders for each system
+        systems = [
+            ("Nervous System" if main_dosha == "Vata" else "Inflammatory Conditions" if main_dosha == "Pitta" else "Respiratory System", 
+             "nervous_system" if main_dosha == "Vata" else "inflammatory_conditions" if main_dosha == "Pitta" else "respiratory_system"),
+            ("Digestive System", "digestive_system"),
+            ("Musculoskeletal" if main_dosha == "Vata" else "Skin Conditions" if main_dosha == "Pitta" else "Metabolic Disorders", 
+             "musculoskeletal" if main_dosha == "Vata" else "skin_conditions" if main_dosha == "Pitta" else "metabolic_disorders"),
+            ("Reproductive Health" if main_dosha == "Vata" else "Metabolic Issues" if main_dosha == "Pitta" else "Joint Issues", 
+             "reproductive_health" if main_dosha == "Vata" else "metabolic_issues" if main_dosha == "Pitta" else "joint_issues"),
+            ("Other Systems", "other_systems")
+        ]
+        
+        for system_name, system_key in systems:
+            with st.expander(f"**{system_name}**", expanded=True):
+                if system_key in health_rec["common_health_issues"]:
+                    for issue in health_rec["common_health_issues"][system_key]:
+                        st.markdown(f"• {issue}")
+                
+                # Add Ayurvedic explanation
+                if system_name == "Nervous System" and main_dosha == "Vata":
+                    st.caption("*Ayurvedic Insight: Vata governs the nervous system. Imbalance leads to dryness and irregularity in nerve conduction.*")
+                elif system_name == "Inflammatory Conditions" and main_dosha == "Pitta":
+                    st.caption("*Ayurvedic Insight: Pitta's heat and sharpness cause inflammation and tissue damage when imbalanced.*")
+                elif system_name == "Respiratory System" and main_dosha == "Kapha":
+                    st.caption("*Ayurvedic Insight: Kapha's heaviness and moisture accumulate in respiratory channels causing congestion.*")
+    
+    with tab3:
+        st.markdown("#### 🛡️ **Prevention Strategies**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Daily Routine (Dinacharya):**")
+            st.success(health_rec["prevention_strategies"]["daily_routine"])
+            
+            st.markdown("**Dietary Guidelines:**")
+            st.info(health_rec["prevention_strategies"]["diet"])
+            
+            st.markdown("**Lifestyle Recommendations:**")
+            for item in health_rec["prevention_strategies"]["lifestyle"].split("; "):
+                st.markdown(f"• {item}")
+        
+        with col2:
+            st.markdown("**Seasonal Care (Ritucharya):**")
+            st.warning(health_rec["prevention_strategies"]["seasonal_care"])
+            
+            st.markdown("**Mental & Emotional Health:**")
+            st.info(health_rec["prevention_strategies"]["mental_health"])
+            
+            st.markdown("**Key Prevention Principles:**")
+            prevention_principles = {
+                "Vata": "Maintain routine, stay warm, avoid excess stimulation",
+                "Pitta": "Stay cool, avoid excessive competition, practice moderation",
+                "Kapha": "Stay active, avoid stagnation, regular detox"
+            }
+            st.success(prevention_principles[main_dosha])
+    
+    with tab4:
+        st.markdown("#### 🌿 **Ayurvedic Treatments & Remedies**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Panchakarma Therapies:**")
+            for therapy in health_rec["ayurvedic_treatments"]["panchakarma"]:
+                st.success(f"• {therapy}")
+            
+            st.markdown("**External Therapies:**")
+            for therapy in health_rec["ayurvedic_treatments"]["external_therapies"]:
+                st.info(f"• {therapy}")
+            
+            st.markdown("**Classic Ayurvedic Principles:**")
+            st.info("""
+            • Treat the root cause, not symptoms
+            • Balance doshas through opposites
+            • Strengthen digestive fire (Agni)
+            • Eliminate toxins (Ama)
+            • Nourish tissues (Dhatus)
+            """)
+        
+        with col2:
+            st.markdown("**Internal Medicines:**")
+            for medicine in health_rec["ayurvedic_treatments"]["internal_medicines"]:
+                st.warning(f"• {medicine}")
+            
+            st.markdown("**Simple Home Remedies:**")
+            for remedy in health_rec["ayurvedic_treatments"]["home_remedies"]:
+                st.success(f"• {remedy}")
+            
+            st.markdown("**When to Seek Professional Help:**")
+            st.error("""
+            • Symptoms persist despite home care
+            • Acute pain or severe symptoms
+            • Sudden weight changes
+            • Persistent digestive issues
+            • Chronic fatigue or depression
+            """)
+    
+    with tab5:
+        st.markdown("#### ⚠️ **Early Warning Signs & Modern Correlations**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Early Warning Signs:**")
+            for sign in health_rec["warning_signs"]:
+                st.error(f"• {sign}")
+            
+            st.markdown("**Seasonal Vulnerabilities:**")
+            seasonal_vuln = {
+                "Vata": "**Autumn & Winter:** Increased dryness, anxiety, joint pain",
+                "Pitta": "**Summer:** Increased inflammation, acidity, skin issues",
+                "Kapha": "**Spring:** Increased congestion, lethargy, weight gain"
+            }
+            st.warning(seasonal_vuln[main_dosha])
+            
+            st.markdown("**Life Stage Vulnerabilities:**")
+            life_stage = {
+                "Vata": "**Old Age:** Natural Vata increase - extra care needed",
+                "Pitta": "**Adulthood:** Peak Pitta years - maintain balance",
+                "Kapha": "**Childhood:** Natural Kapha - establish healthy habits early"
+            }
+            st.info(life_stage[main_dosha])
+        
+        with col2:
+            st.markdown("**Modern Medical Correlations:**")
+            for correlation in health_rec["modern_correlations"]:
+                st.info(f"• {correlation}")
+            
+            st.markdown("**Preventive Screening Recommended:**")
+            screenings = {
+                "Vata": ["Bone density scans", "Neurological exams", "Colon cancer screening"],
+                "Pitta": ["Skin cancer checks", "Cardiac screening", "Liver function tests"],
+                "Kapha": ["Metabolic panel", "Thyroid function", "Sleep apnea evaluation"]
+            }
+            for screening in screenings[main_dosha]:
+                st.success(f"• {screening}")
+            
+            st.markdown("**Ayurvedic Wisdom:**")
+            wisdom = {
+                "Vata": "*""Prevention is maintaining your grounding when the winds of change blow.""*",
+                "Pitta": "*""Balance your inner fire - enough to transform, not enough to burn.""*",
+                "Kapha": "*""Keep the waters moving, for stagnant water breeds disease.""*"
+            }
+            st.markdown(wisdom[main_dosha])
+
+# =============================
 # QUESTION TOGGLE COMPONENT
 # =============================
 def display_questions_with_toggle():
@@ -2478,10 +3426,10 @@ def main():
             # Dosha Chart
             create_dosha_chart_streamlit(st.session_state.scores)
             
-            # Tabs for different sections - UPDATED TO INCLUDE NEW TABS
-            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
+            # Tabs for different sections - UPDATED TO INCLUDE NEW HEALTH TAB
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
                 "📖 Story", "👁️ Body", "🧠 Personality", "🌟 Horoscope", "🧘 Daily Life", 
-                "🥗 Nutrition", "🌸 Perfume", "🌿 Herbs", "💄 Beauty"
+                "🥗 Nutrition", "🌸 Perfume", "🌿 Herbs", "💄 Beauty", "💪 Exercise & Fasting", "🏥 Health Issues"
             ])
             
             with tab1:
@@ -2578,6 +3526,14 @@ def main():
             with tab9:
                 # NEW: Beauty & Skincare Section
                 display_beauty_skincare_section(dosha_data)
+            
+            with tab10:
+                # NEW: Exercise, Fasting & Diet Section
+                display_exercise_fasting_diet_section(dosha_data, st.session_state.main_dosha)
+            
+            with tab11:
+                # NEW: Comprehensive Health Issues Section
+                display_health_issues_section(dosha_data, st.session_state.main_dosha)
             
             # Reset Button
             st.markdown("---")
