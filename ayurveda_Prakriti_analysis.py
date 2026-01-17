@@ -91,7 +91,7 @@ st.markdown("""
         
         /* Dark Mode Cards */
         .wisdom-card {
-            background: var(--dark-card-bg);
+            /* background: var(--dark-card-bg)*/
             border-color: var(--dark-card-border);
             color: var(--dark-text);
         }
@@ -303,7 +303,6 @@ st.markdown("""
     
     /* Enhanced Card Design */
     .wisdom-card {
-        background: var(--light-card-bg);
         border: 1px solid var(--light-card-border);
         padding: 20px;
         border-radius: 12px;
@@ -321,7 +320,7 @@ st.markdown("""
     }
     
     .wisdom-card::before {
-        content: "OM";
+        content: "ॐ";
         position: absolute;
         top: 10px;
         right: 15px;
@@ -1182,7 +1181,7 @@ def generate_pdf_report(user_data, dosha_data, scores, main_dosha):
     # Final note
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 8, 'Generated with Vaidya: Prakriti Mastery - ayurveda-prakriti-analysis.streamlit', 0, 1, 'C')
+    pdf.cell(0, 8, 'Generated with Vaidya: Prakriti Mastery - www.ayurveda-prakriti-analysis.streamlit', 0, 1, 'C')
     
     # Generate PDF - FIXED VERSION
     try:
