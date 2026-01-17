@@ -3,6 +3,9 @@ from collections import Counter
 import pandas as pd
 from datetime import datetime, date, timedelta
 import base64
+from fpdf import FPDF, HTMLMixin 
+import tempfile
+import os
 
 # =============================
 # PAGE CONFIG & ANCIENT THEME
@@ -226,6 +229,7 @@ st.markdown("""
         .stTabs [aria-selected="true"] {
             background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%) !important;
             color: white !important;
+            box-shadow: 0 4px 8px rgba(141, 110, 99, 0.3);
         }
         
         /* Dark Mode Progress Bar Background */
@@ -317,7 +321,7 @@ st.markdown("""
     }
     
     .wisdom-card::before {
-        content: "ॐ";
+        content: "OM";
         position: absolute;
         top: 10px;
         right: 15px;
@@ -814,6 +818,413 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
+# =============================
+# PDF GENERATION CLASS - SIMPLIFIED VERSION
+# =============================
+class AyurvedicPDFReport(FPDF):
+    def __init__(self):
+        super().__init__()
+        # Use standard fonts only
+        self.set_auto_page_break(auto=True, margin=15)
+        
+    def header(self):
+        # Simple header without Unicode
+        self.set_font('Arial', 'B', 20)
+        self.set_text_color(142, 110, 99)
+        self.cell(0, 10, 'VAIDYA: PRAKRITI MASTERY', 0, 1, 'C')
+        
+        self.set_font('Arial', 'I', 12)
+        self.set_text_color(121, 85, 72)
+        self.cell(0, 8, 'Ancient Wisdom for Modern Living - Personal Prakriti Analysis', 0, 1, 'C')
+        self.ln(5)
+    
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('Arial', 'I', 8)
+        self.set_text_color(128, 128, 128)
+        self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
+    
+    def chapter_title(self, title, symbol="*"):
+        self.set_font('Arial', 'B', 16)
+        self.set_text_color(142, 110, 99)
+        self.cell(0, 10, f'{symbol} {title}', 0, 1, 'L')
+        self.ln(2)
+    
+    def dosha_section_title(self, title, dosha_color):
+        self.set_font('Arial', 'B', 14)
+        self.set_text_color(*dosha_color)
+        self.cell(0, 8, title, 0, 1, 'L')
+        self.ln(1)
+    
+    def add_body_text(self, text):
+        self.set_font('Arial', '', 11)
+        self.set_text_color(50, 50, 50)
+        # Clean text by removing Unicode characters
+        cleaned_text = self._clean_text(text)
+        self.multi_cell(0, 6, cleaned_text)
+        self.ln(2)
+    
+    def add_bullet_point(self, text, indent=10):
+        self.set_font('Arial', '', 11)
+        self.set_text_color(50, 50, 50)
+        self.cell(indent)
+        # Clean text by removing Unicode characters
+        cleaned_text = self._clean_text(text)
+        self.cell(0, 6, f'* {cleaned_text}', 0, 1)
+    
+    def add_table_row(self, col1, col2, col_width=80):
+        self.set_font('Arial', 'B', 11)
+        self.set_text_color(93, 64, 55)
+        self.cell(col_width, 8, col1, 'B', 0)
+        self.set_font('Arial', '', 10)
+        self.set_text_color(50, 50, 50)
+        # Clean text by removing Unicode characters
+        cleaned_col2 = self._clean_text(col2)
+        self.cell(0, 8, cleaned_col2, 'B', 1)
+    
+    def add_dosha_chart(self, scores, user_name):
+        # Chart header
+        self.set_font('Arial', 'B', 14)
+        self.set_text_color(93, 64, 55)
+        self.cell(0, 10, f'Dosha Analysis for {user_name}', 0, 1, 'C')
+        self.ln(2)
+        
+        # Create a simple bar chart representation
+        chart_width = 180
+        bar_height = 15
+        
+        # Vata bar
+        vata_percent = scores['Vata']
+        vata_width = (vata_percent / 100) * chart_width
+        self.set_fill_color(142, 110, 99)
+        self.rect(10, self.get_y(), vata_width, bar_height, 'F')
+        self.set_font('Arial', 'B', 10)
+        self.set_text_color(255, 255, 255)
+        self.set_xy(10 + vata_width + 5, self.get_y())
+        self.cell(0, bar_height, f'Vata: {vata_percent:.0f}%', 0, 1)
+        self.ln(3)
+        
+        # Pitta bar
+        pitta_percent = scores['Pitta']
+        pitta_width = (pitta_percent / 100) * chart_width
+        self.set_fill_color(211, 47, 47)
+        self.rect(10, self.get_y(), pitta_width, bar_height, 'F')
+        self.set_text_color(255, 255, 255)
+        self.set_xy(10 + pitta_width + 5, self.get_y())
+        self.cell(0, bar_height, f'Pitta: {pitta_percent:.0f}%', 0, 1)
+        self.ln(3)
+        
+        # Kapha bar
+        kapha_percent = scores['Kapha']
+        kapha_width = (kapha_percent / 100) * chart_width
+        self.set_fill_color(56, 142, 60)
+        self.rect(10, self.get_y(), kapha_width, bar_height, 'F')
+        self.set_text_color(255, 255, 255)
+        self.set_xy(10 + kapha_width + 5, self.get_y())
+        self.cell(0, bar_height, f'Kapha: {kapha_percent:.0f}%', 0, 1)
+        self.ln(10)
+    
+    def add_wisdom_quote(self, quote):
+        self.set_font('Arial', 'I', 10)
+        self.set_text_color(121, 85, 72)
+        self.set_x(10)
+        # Clean quote by removing Unicode characters
+        cleaned_quote = self._clean_text(quote)
+        self.multi_cell(0, 6, f'"{cleaned_quote}"')
+        self.ln(3)
+    
+    def _clean_text(self, text):
+        """Remove Unicode characters from text for PDF compatibility"""
+        if not text:
+            return ""
+        # Replace common Unicode characters with ASCII equivalents
+        replacements = {
+            'ॐ': 'OM',
+            '—': '-',
+            '–': '-',
+            '•': '*',
+            '“': '"',
+            '”': '"',
+            '‘': "'",
+            '’': "'",
+            '…': '...',
+            '₹': 'Rs',
+            '℃': 'C',
+            '°': ' deg '
+        }
+        
+        cleaned_text = text
+        for unicode_char, ascii_char in replacements.items():
+            cleaned_text = cleaned_text.replace(unicode_char, ascii_char)
+        
+        # Remove any other non-ASCII characters
+        cleaned_text = ''.join(char for char in cleaned_text if ord(char) < 128)
+        return cleaned_text
+
+# =============================
+# PDF GENERATION FUNCTION
+# =============================
+# =============================
+# PDF GENERATION FUNCTION
+# =============================
+def generate_pdf_report(user_data, dosha_data, scores, main_dosha):
+    pdf = AyurvedicPDFReport()
+    
+    # Add first page
+    pdf.add_page()
+    
+    # Personal Information Section
+    pdf.chapter_title("Personal Information")
+    pdf.add_table_row("Name:", user_data['name'])
+    pdf.add_table_row("Date of Birth:", user_data['birth_date'])
+    pdf.add_table_row("Nepali Date:", user_data['nepali_date'])
+    pdf.add_table_row("Analysis Date:", datetime.now().strftime("%d/%m/%Y %H:%M"))
+    pdf.ln(5)
+    
+    # Dosha Analysis Section
+    pdf.chapter_title("Dosha Analysis Results")
+    pdf.add_dosha_chart(scores, user_data['name'])
+    
+    # Main Dosha Information
+    dosha_colors = {
+        "Vata": (142, 110, 99),
+        "Pitta": (211, 47, 47),
+        "Kapha": (56, 142, 60)
+    }
+    
+    pdf.dosha_section_title(f"Primary Dosha: {main_dosha}", dosha_colors[main_dosha])
+    pdf.add_body_text(f"Archetype: {dosha_data['title']}")
+    pdf.add_body_text(f"Elements: {dosha_data['element']}")
+    pdf.add_body_text(f"Governing Planets: {dosha_data['governing_planet']}")
+    pdf.add_body_text(f"Sanskrit Name: {dosha_data['sanskrit_name']}")
+    pdf.ln(5)
+    
+    # Personal Story
+    pdf.chapter_title("Your Archetype Story")
+    story_text = pdf._clean_text(dosha_data['story'])
+    pdf.add_body_text(story_text)
+    quote_text = pdf._clean_text(dosha_data['ancient_quote'])
+    pdf.add_wisdom_quote(quote_text)
+    pdf.ln(5)
+    
+    # Physical Characteristics
+    pdf.chapter_title("Physical Characteristics")
+    if "body_description" in dosha_data:
+        body = dosha_data["body_description"]
+        pdf.add_table_row("Frame & Build:", body["frame"])
+        pdf.add_table_row("Height Pattern:", body["height"])
+        pdf.add_table_row("Weight Pattern:", body["weight"])
+        pdf.add_table_row("Skin Type:", body["skin"])
+        pdf.add_table_row("Hair Type:", body["hair"])
+        pdf.add_table_row("Eye Characteristics:", body["eyes"])
+    pdf.ln(5)
+    
+    # Personality Traits
+    pdf.chapter_title("Personality Profile")
+    if "personality" in dosha_data:
+        personality = dosha_data["personality"]
+        pdf.add_body_text(f"Core Nature: {personality['nature']}")
+        pdf.add_body_text(f"Communication Style: {personality['communication']}")
+        pdf.ln(2)
+        
+        pdf.set_font('Arial', 'B', 12)
+        pdf.set_text_color(142, 110, 99)
+        pdf.cell(0, 8, "Strengths:", 0, 1)
+        pdf.set_font('Arial', '', 11)
+        pdf.set_text_color(50, 50, 50)
+        for strength in personality['strengths']:
+            pdf.add_bullet_point(strength)
+        
+        pdf.set_font('Arial', 'B', 12)
+        pdf.set_text_color(211, 47, 47)
+        pdf.cell(0, 8, "Areas for Balance:", 0, 1)
+        pdf.set_font('Arial', '', 11)
+        pdf.set_text_color(50, 50, 50)
+        for weakness in personality['weaknesses']:
+            pdf.add_bullet_point(weakness)
+    pdf.ln(5)
+    
+    # Add new page for detailed recommendations
+    pdf.add_page()
+    
+    # Daily Routine
+    pdf.chapter_title("Daily Rituals & Routine")
+    pdf.add_body_text("According to Ayurveda, following a daily routine (Dinacharya) aligned with your dosha is key to balance.")
+    pdf.ln(2)
+    
+    routine_items = [
+        ("5-6 AM", "Wake with first light (Brahma Muhurta)"),
+        ("6-7 AM", f"Oil massage with warm sesame oil"),
+        ("7-8 AM", f"30 minutes of pranayama and gentle yoga"),
+        ("8 AM", "Warm, cooked breakfast with spices"),
+        ("12-1 PM", "Main meal of the day"),
+        ("4-6 PM", "Gentle walk or light exercise"),
+        ("6 PM", "Light, warm dinner"),
+        ("9 PM", "Bedtime with warm milk and calming spices")
+    ]
+    
+    for time, activity in routine_items:
+        pdf.add_table_row(f"{time}:", activity)
+    pdf.ln(5)
+    
+    # Diet & Nutrition
+    pdf.chapter_title("Diet & Nutrition Guidelines")
+    
+    if main_dosha == "Vata":
+        foods_to_embrace = ["Warm cooked grains", "Root vegetables", "Ghee", "Nuts (soaked)", "Spiced milk", "Sweet fruits"]
+        foods_to_minimize = ["Cold foods", "Raw salads", "Dry crackers", "Beans", "Leftovers", "Caffeine"]
+    elif main_dosha == "Pitta":
+        foods_to_embrace = ["Sweet fruits", "Coconut", "Cucumber", "Mint", "Fennel", "Rice", "Dairy"]
+        foods_to_minimize = ["Spicy foods", "Sour fruits", "Fermented foods", "Alcohol", "Excessive salt"]
+    else:  # Kapha
+        foods_to_embrace = ["Light grains", "Steamed greens", "Legumes", "Honey", "Spices", "Apples", "Pomegranate"]
+        foods_to_minimize = ["Heavy desserts", "Dairy", "Fried foods", "Cold drinks", "Excessive nuts", "Bananas"]
+    
+    pdf.set_font('Arial', 'B', 12)
+    pdf.set_text_color(56, 142, 60)
+    pdf.cell(0, 8, "Foods to Embrace:", 0, 1)
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(50, 50, 50)
+    for food in foods_to_embrace[:6]:
+        pdf.add_bullet_point(food)
+    
+    pdf.set_font('Arial', 'B', 12)
+    pdf.set_text_color(211, 47, 47)
+    pdf.cell(0, 8, "Foods to Minimize:", 0, 1)
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(50, 50, 50)
+    for food in foods_to_minimize[:6]:
+        pdf.add_bullet_point(food)
+    pdf.ln(5)
+    
+    # Herbs & Supplements
+    pdf.chapter_title("Ayurvedic Herbs & Supplements")
+    if "herbs_supplements" in dosha_data:
+        herbs = dosha_data["herbs_supplements"]
+        if "general_herbs" in herbs:
+            pdf.set_font('Arial', 'B', 12)
+            pdf.set_text_color(93, 64, 55)
+            pdf.cell(0, 8, "Recommended Herbs:", 0, 1)
+            pdf.set_font('Arial', '', 11)
+            pdf.set_text_color(50, 50, 50)
+            for herb in herbs["general_herbs"][:5]:
+                pdf.add_bullet_point(herb)
+    
+    pdf.ln(3)
+    pdf.add_body_text("Always consult with an Ayurvedic practitioner before starting any herbal regimen.")
+    pdf.ln(5)
+    
+    # Perfume & Aromatherapy
+    pdf.chapter_title("Sacred Scents & Aromatherapy")
+    if "perfume_recommendations" in dosha_data:
+        perfume = dosha_data["perfume_recommendations"]
+        if "top_scents" in perfume:
+            pdf.set_font('Arial', 'B', 12)
+            pdf.set_text_color(142, 110, 99)
+            pdf.cell(0, 8, "Balancing Scents:", 0, 1)
+            pdf.set_font('Arial', '', 11)
+            pdf.set_text_color(50, 50, 50)
+            for scent in perfume["top_scents"][:5]:
+                pdf.add_bullet_point(scent)
+    pdf.ln(5)
+    
+    # Health Guidance
+    pdf.chapter_title("Health & Wellness Guidance")
+    pdf.add_body_text(f"As a {main_dosha} predominant type, pay attention to:")
+    pdf.ln(2)
+    
+    health_guidance = {
+        "Vata": ["Nervous system balance", "Joint health", "Digestive regularity", "Warmth and grounding"],
+        "Pitta": ["Inflammation management", "Liver health", "Skin care", "Cooling practices"],
+        "Kapha": ["Metabolic stimulation", "Respiratory health", "Weight management", "Lymphatic drainage"]
+    }
+    
+    for guidance in health_guidance[main_dosha]:
+        pdf.add_bullet_point(guidance)
+    pdf.ln(5)
+    
+    # Exercise & Lifestyle
+    pdf.chapter_title("Exercise & Lifestyle")
+    exercise_tips = {
+        "Vata": "Gentle, grounding exercises like yoga, tai chi, and walking in nature. Avoid excessive cardio.",
+        "Pitta": "Moderate, cooling exercises like swimming and moon salutations. Avoid competitive sports.",
+        "Kapha": "Vigorous, stimulating exercises like running and strength training. Avoid sedentary lifestyle."
+    }
+    
+    pdf.add_body_text(f"Recommended: {exercise_tips[main_dosha]}")
+    pdf.ln(2)
+    
+    # Final Wisdom
+    pdf.add_page()
+    pdf.chapter_title("Ancient Wisdom for Your Journey")
+    
+    wisdom_quotes = [
+        "Health is the greatest gift, contentment the greatest wealth.",
+        "When diet is wrong, medicine is of no use. When diet is correct, medicine is of no need.",
+        "The secret of health for both mind and body is not to mourn for the past, nor to worry about the future, but to live the present moment wisely.",
+        "Balance is not something you find, it's something you create."
+    ]
+    
+    for quote in wisdom_quotes:
+        pdf.add_wisdom_quote(quote)
+        pdf.ln(2)
+    
+    pdf.ln(10)
+    pdf.set_font('Arial', 'B', 14)
+    pdf.set_text_color(93, 64, 55)
+    pdf.cell(0, 10, 'SARVE BHAVANTU SUKHINAH', 0, 1, 'C')
+    pdf.set_font('Arial', 'I', 10)
+    pdf.set_text_color(121, 85, 72)
+    pdf.cell(0, 8, '"May all be happy, may all be free from illness"', 0, 1, 'C')
+    pdf.ln(5)
+    
+    # Final note
+    pdf.set_font('Arial', '', 9)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 8, 'Generated with Vaidya: Prakriti Mastery - ayurveda-prakriti-analysis.streamlit', 0, 1, 'C')
+    
+    # Generate PDF - FIXED VERSION
+    try:
+        # Method 1: Try to get bytes directly
+        pdf_output = pdf.output(dest='S')
+        
+        # Check if it's already bytes
+        if isinstance(pdf_output, bytes):
+            return pdf_output
+        elif isinstance(pdf_output, str):
+            # If it's a string, encode it
+            return pdf_output.encode('latin-1')
+        elif isinstance(pdf_output, bytearray):
+            # If it's a bytearray, convert to bytes
+            return bytes(pdf_output)
+        else:
+            # Fallback: use to_bytes method
+            return pdf.output()
+    except:
+        # Ultimate fallback
+        return pdf.output()
+
+# =============================
+# CREATE DOWNLOAD LINK FOR PDF
+# =============================
+def create_download_link(pdf_output, filename):
+    """Create a download link for the PDF file with proper encoding"""
+    b64 = base64.b64encode(pdf_output).decode()
+    href = f'''
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="data:application/pdf;base64,{b64}" download="{filename}" 
+           style="background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); 
+                  color: white; padding: 14px 28px; text-decoration: none; 
+                  border-radius: 10px; font-weight: 600; display: inline-block; 
+                  font-family: Inter, sans-serif; font-size: 1.1rem;
+                  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+                  transition: all 0.3s ease;">
+           📥 Download Complete Analysis PDF
+        </a>
+    </div>
+    '''
+    return href
 
 # =============================
 # SIMPLIFIED DATE INPUT FOR DD/MM/YYYY
@@ -3239,7 +3650,7 @@ def display_footer():
                 <span>Ancient Wisdom for Modern Living</span>
             </div>
             <div class="footer-row">
-                <span>"सर्वे भवन्तु सुखिनः"</span>
+                <span>"Sarve Bhavantu Sukhinah"</span>
                 <span>•</span>
                 <span>May all be happy</span>
             </div>
@@ -3304,12 +3715,26 @@ def main():
         st.caption("• Choose what feels most natural")
         st.caption("• Consider your lifelong tendencies")
         st.caption("• The assessment reveals your true nature")
+        
+        # PDF Export Info
+        st.markdown("---")
+        st.markdown("### 📄 Report Export")
+        st.info("""
+        After completing your assessment,
+        download your personalized
+        Ayurvedic Prakriti Analysis
+        as a beautifully formatted PDF report.
+        """)
     
     # Initialize session state
     if 'assessment_complete' not in st.session_state:
         st.session_state.assessment_complete = False
     if 'validation_errors' not in st.session_state:
         st.session_state.validation_errors = []
+    if 'pdf_generated' not in st.session_state:
+        st.session_state.pdf_generated = False
+    if 'pdf_data' not in st.session_state:
+        st.session_state.pdf_data = None
     
     # User Introduction
     col1, col2 = st.columns([2, 1])
@@ -3399,22 +3824,6 @@ def main():
             # Add an invisible anchor at the top of results
             st.markdown('<div class="results-anchor" id="results-top"></div>', unsafe_allow_html=True)
             
-            # Add a script to scroll to results on page load
-            st.markdown("""
-            <script>
-            // Scroll to results when page loads
-            window.onload = function() {
-                // Small delay to ensure content is rendered
-                setTimeout(function() {
-                    const resultsAnchor = document.querySelector('.results-anchor');
-                    if (resultsAnchor) {
-                        resultsAnchor.scrollIntoView({behavior: 'smooth'});
-                    }
-                }, 100);
-            };
-            </script>
-            """, unsafe_allow_html=True)
-            
             st.markdown("---")
             dosha_data = DOSHA_ARCHETYPES[st.session_state.main_dosha]
             
@@ -3425,6 +3834,51 @@ def main():
             
             # Dosha Chart
             create_dosha_chart_streamlit(st.session_state.scores)
+            
+            # PDF Export Section
+            st.markdown("---")
+            st.markdown("### 📄 Download Your Complete Analysis")
+            
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                if st.button("🖨️ Generate PDF Report", type="primary", use_container_width=True):
+                    with st.spinner("Creating your beautiful Ayurvedic report..."):
+                        # Prepare user data for PDF
+                        user_data = {
+                            'name': st.session_state.user_name,
+                            'birth_date': st.session_state.formatted_date,
+                            'nepali_date': st.session_state.nepali_date['formatted_english']
+                        }
+        
+                        # Generate PDF
+                        pdf_output = generate_pdf_report(
+                            user_data, 
+                            dosha_data, 
+                            st.session_state.scores, 
+                            st.session_state.main_dosha
+                        )
+                        
+                        st.session_state.pdf_data = pdf_output
+                        st.session_state.pdf_generated = True
+                        st.rerun()
+                
+            # Display PDF download link if generated
+            if st.session_state.pdf_generated and st.session_state.pdf_data:
+                filename = f"Ayurvedic_Prakriti_Analysis_{st.session_state.user_name.replace(' ', '_')}.pdf"
+                st.markdown(create_download_link(st.session_state.pdf_data, filename), unsafe_allow_html=True)
+                
+                st.info("""
+                **Your PDF Report Includes:**
+                • Personal information and dosha analysis
+                • Archetype story and personality profile
+                • Physical characteristics
+                • Daily rituals and routines
+                • Diet and nutrition guidelines
+                • Herbs and supplements recommendations
+                • Sacred scents and aromatherapy
+                • Health and wellness guidance
+                • Ancient wisdom for your journey
+                """)
             
             # Tabs for different sections - UPDATED TO INCLUDE NEW HEALTH TAB
             tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
@@ -3439,14 +3893,14 @@ def main():
                     <h3 style="color: {st.session_state.main_dosha == 'Vata' and '#8d6e63' or st.session_state.main_dosha == 'Pitta' and '#d32f2f' or '#388e3c'};">
                         Your Archetype Story
                     </h3>
-                    <p style="color: inherit;">{dosha_data['story']}</p>
+                    <p style="color: #6b3e26;">{dosha_data['story']}</p>
                     <hr>
-                    <p style="color: inherit;"><b>Ancient Wisdom:</b> <i>"{dosha_data['ancient_quote']}"</i></p>
-                    <p style="color: inherit;"><b>Sanskrit Name:</b> {dosha_data['sanskrit_name']}</p>
-                    <p style="color: inherit;"><b>Element:</b> {dosha_data['element']}</p>
-                    <p style="color: inherit;"><b>Governing Planets:</b> {dosha_data['governing_planet']}</p>
-                    <p style="color: inherit;"><b>Season:</b> {dosha_data['season']}</p>
-                    <p style="color: inherit;"><b>Peak Time:</b> {dosha_data['time_of_day']}</p>
+                    <p style="color: #6b3e26;"><b>Ancient Wisdom:</b> <i>"{dosha_data['ancient_quote']}"</i></p>
+                    <p style="color: #6b3e26;"><b>Sanskrit Name:</b> {dosha_data['sanskrit_name']}</p>
+                    <p style="color: #6b3e26;"><b>Element:</b> {dosha_data['element']}</p>
+                    <p style="color: #6b3e26;"><b>Governing Planets:</b> {dosha_data['governing_planet']}</p>
+                    <p style="color: #6b3e26;"><b>Season:</b> {dosha_data['season']}</p>
+                    <p style="color: #6b3e26;"><b>Peak Time:</b> {dosha_data['time_of_day']}</p>
                 </div>
                 """, unsafe_allow_html=True)
             
