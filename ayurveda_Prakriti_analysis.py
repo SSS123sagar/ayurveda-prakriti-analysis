@@ -1940,54 +1940,54 @@ DOSHA_ARCHETYPES = {
 # =============================
 AYURVEDIC_QUESTIONS = [
     ("1. What is your natural body frame?", 
-     ["A) Thin, bony, irregular with prominent joints",
-      "B) Medium, symmetrical, athletic build", 
-      "C) Large, broad, solid frame"]),
+     ["A) Naturally lean or light-framed, often appearing slender even without effort",
+      "B) Naturally well-proportioned with a balanced, athletic-looking structure", 
+      "C) Naturally broad or solid, with a sturdy or fuller physical presence"]),
     
     ("2. How would you describe your weight pattern?",
-     ["A) Difficulty gaining weight, tends to stay thin",
-      "B) Maintains weight easily, gains and loses with effort", 
-      "C) Gains weight easily, difficult to lose"]),
+     ["A) Tends to remain thin or lose weight easily, even when eating well",
+      "B) Weight usually stays stable and changes gradually with conscious effort", 
+      "C) Tends to gain weight easily and finds weight loss slower"]),
     
     ("3. What is your skin texture like?",
-     ["A) Dry, thin, cool to touch", 
-      "B) Warm, reddish, sensitive", 
-      "C) Thick, smooth, oily, cool"]),
+     ["A) Often feels dry, rough, or lacking moisture",
+      "B) Often feels warm, sensitive, or prone to redness", 
+      "C) Generally smooth, soft, or slightly oily"]),
     
     ("4. What is your typical energy pattern?",
-     ["A) Bursts of energy followed by fatigue",
-      "B) Consistent, focused energy", 
-      "C) Steady, enduring energy"]),
+     ["A) Energy rises and falls throughout the day, with moments of enthusiasm followed by rest",
+      "B) Energy feels strong, focused, and goal-driven for extended periods", 
+      "C) Energy is steady, calm, and long-lasting without sharp peaks"]),
     
     ("5. How is your appetite and digestion?",
-     ["A) Irregular appetite, prone to bloating",
-      "B) Strong appetite, quick digestion", 
-      "C) Steady appetite, slow digestion"]),
+     ["A) Appetite can be unpredictable, sometimes strong and sometimes low",
+      "B) Appetite is usually strong with quick digestion", 
+      "C) Appetite is moderate and digestion feels slower but consistent"]),
     
     ("6. What is your sleep pattern like?",
-     ["A) Light, restless, difficulty falling asleep",
-      "B) Sound sleep, vivid dreams", 
-      "C) Deep, heavy sleep, difficult to wake"]),
+     ["A) Sleep tends to be light, easily interrupted, or irregular",
+      "B) Sleep is generally restful and refreshing", 
+      "C) Sleep is deep, heavy, and long, sometimes making waking up difficult"]),
     
     ("7. How is your mind typically?",
-     ["A) Creative, restless, full of ideas", 
-      "B) Focused, ambitious, analytical", 
-      "C) Calm, steady, patient"]),
+     ["A) Mind is active, imaginative, and often jumping between ideas",
+      "B) Mind is sharp, focused, and oriented toward goals or problem-solving", 
+      "C) Mind is calm, patient, and steady"]),
     
     ("8. How do you handle stress?",
-     ["A) Anxiety, worry, nervous energy",
-      "B) Anger, frustration, need to solve immediately", 
-      "C) Avoidance, lethargy, emotional eating"]),
+     ["A) Stress shows up as worry, overthinking, or nervous energy",
+      "B) Stress triggers intensity, frustration, or a strong urge to take control", 
+      "C) Stress leads to withdrawal, slowing down, or seeking comfort"]),
     
     ("9. What climate suits you best?",
-     ["A) Warm, humid, calm weather", 
-      "B) Cool, dry, well-ventilated", 
-      "C) Warm, dry, stimulating"]),
+     ["A) Feels best in warm, calm, or slightly humid environments",
+      "B) Feels best in cooler or well-ventilated environments", 
+      "C) Feels best in warm, dry, or stable environments"]),
     
     ("10. What is your learning style?",
-     ["A) Quick to grasp, quick to forget", 
-      "B) Sharp, analytical, competitive", 
-      "C) Slow, steady, excellent long-term memory"])
+     ["A) Learns quickly and intuitively but may forget details over time",
+      "B) Learns best through focus, challenge, and analysis", 
+      "C) Learns gradually but retains information for a long time"])
 ]
 
 # =============================
